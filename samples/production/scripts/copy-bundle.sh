@@ -2,8 +2,8 @@
 
 # Define source and destination paths
 SOURCE_BUNDLE="./dist/example.lynx.bundle"
-ANDROID_DEST="./android/KotlinEmptyProject/app/src/main/assets/main.lynx.bundle"
-IOS_DEST="./ios/HelloLynxSwift/main.lynx.bundle"
+ANDROID_DEST="./android/app/src/main/assets/main.lynx.bundle"
+IOS_DEST="./ios/main.lynx.bundle"
 
 # Check if source file exists
 if [ ! -f "$SOURCE_BUNDLE" ]; then
