@@ -1,4 +1,14 @@
 {
-  "name": "sentry-lynx",
+  "name": "sentry-lynx-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "lerna run build",
+    "build:tarball": "lerna run build:tarball",
+    "clean": "lerna run clean"
+  },
+  "devDependencies": {
+    "lerna": "^8.2.1"
+  },
   "packageManager": "yarn@4.8.1"
 }
