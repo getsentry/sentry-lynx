@@ -44,7 +44,6 @@ DerivedData
 # Ruby / CocoaPods
 #
 **/Pods/
-**/Podfile.lock
 /vendor/bundle/
 
 # Android/IntelliJ
