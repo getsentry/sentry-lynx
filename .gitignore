@@ -15,6 +15,7 @@ node_modules
 
 #!.yarn/cache
 .pnp.*
+dist/
 
 # OSX
 #
