@@ -4,18 +4,9 @@ import './App.css'
 import arrow from './assets/arrow.png'
 import reactLynxLogo from './assets/react-logo.png'
 
-if (__BACKGROUND__) {
-  const app = (lynx as any).getApp()
-  const originalHandleError = app.handleError;
-  app.handleError = function(error: Error, originError?: Error, errorLevel?: any) {
-    console.log('error received in handleError: ', error, originError, errorLevel)
-    originalHandleError.call(app, error, originError, errorLevel)
-  }
-}
-
 export function App() {
   const onTap = useCallback(() => {
-    throw new Error('test error')
+    throw new Error('Sentry Test Error')
   }, [])
   return (
     <view>

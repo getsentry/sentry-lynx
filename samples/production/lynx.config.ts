@@ -16,15 +16,14 @@ export default defineConfig({
     sourceMap: {
       js: 'source-map',
     },
-    filename: 'example.lynx.bundle'
   },
   tools: {
     rspack: {
       plugins: [
         sentryWebpackPlugin({
           authToken: process.env.SENTRY_AUTH_TOKEN,
-          org: 'sentry-sdks',
-          project: 'sentry-flutter',
+          org: '__ORG__',
+          project: '__PROJECT__',
         })
       ]
     }
