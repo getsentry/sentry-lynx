@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define source and destination paths
-SOURCE_BUNDLE="./dist/example.lynx.bundle"
+SOURCE_BUNDLE="./dist/main.lynx.bundle"
 ANDROID_DEST="./android/app/src/main/assets/main.lynx.bundle"
 IOS_DEST="./ios/main.lynx.bundle"
 
