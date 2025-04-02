@@ -22,8 +22,8 @@ export default defineConfig({
       plugins: [
         sentryWebpackPlugin({
           authToken: process.env.SENTRY_AUTH_TOKEN,
-          org: '__ORG__',
-          project: '__PROJECT__',
+          org: 'sentry-sdks',
+          project: 'sentry-lynx',
         })
       ]
     }

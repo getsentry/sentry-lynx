@@ -1,18 +1,34 @@
-# integrating-lynx-demo-projects
+## Sentry Lynx Production Sample
 
-This repository includes some demo projects of platform applications for getting started with integrating Lynx to existing project.
+This is a ReactLynx project bootstrapped with `create-rspeedy`.
 
-## Android Empty Projects
+## Getting Started
 
-- [`KotlinEmptyProject`] : Language of Main Activity and build configuration is Kotlin.
-- [`JavaEmptyProject`] : Languange of Main Activity is Java and languange of build configuration is groovy.
+First, install the dependencies:
 
-## iOS Empty Projects
+```bash
+npm install
+```
 
-- [`SwiftEmptyProject`] : Swift project with SwiftUI.
-- [`ObjcEmptyProject`] : Objective-C project.
+In `lynx.config.ts`, configure the org and project:
 
-[`JavaEmptyProject`]: ./android/JavaEmptyProject
-[`KotlinEmptyProject`]: ./android/KotlinEmptyProject
-[`ObjcEmptyProject`]: ./ios/ObjcEmptyProject
-[`SwiftEmptyProject`]: ./ios/SwiftEmptyProject
+```ts
+org: 'sentry-sdks',
+project: 'sentry-lynx',
+```
+
+Then, set up your `SENTRY_AUTH_TOKEN` environment variable:
+
+```bash
+export SENTRY_AUTH_TOKEN=<your-sentry-auth-token>
+```
+
+Run the build:
+
+```bash
+npm run build
+```
+
+This will build the Lynx bundle and copy it to the `android` and `ios` directories.
+
+Then you can run the Android or iOS app on your phone or the simulator.
