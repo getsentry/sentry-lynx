@@ -51,3 +51,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+
+# Lynx
+#
+*.lynx.bundle
