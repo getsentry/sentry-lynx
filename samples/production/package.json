@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.106.2",
-    "@sentry/browser": "9.9.0",
+    "//": "TODO: use @sentry/lynx later",
     "webpack": "^5.98.0"
   },
   "devDependencies": {
