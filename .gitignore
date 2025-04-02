@@ -18,7 +18,7 @@ node_modules
 
 # OSX
 #
-*.DS_Store
+.DS_Store
 
 # Xcode
 #
@@ -39,6 +39,11 @@ DerivedData
 *.ipa
 *.xcuserstate
 *.xcode.env.local
+
+# Ruby / CocoaPods
+#
+**/Pods/
+/vendor/bundle/
 
 # Android/IntelliJ
 #
