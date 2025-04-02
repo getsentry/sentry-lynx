@@ -1,7 +1,6 @@
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin';
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin';
 import { defineConfig } from '@lynx-js/rspeedy';
-import { sentryWebpackPlugin } from '@sentry/webpack-plugin';
 export default defineConfig({
   plugins: [
     pluginQRCode({
@@ -17,15 +16,4 @@ export default defineConfig({
       js: 'source-map',
     },
   },
-  tools: {
-    rspack: {
-      plugins: [
-        sentryWebpackPlugin({
-          authToken: process.env.SENTRY_AUTH_TOKEN,
-          org: 'sentry-sdks',
-          project: 'sentry-lynx',
-        })
-      ]
-    }
-  }
 });
