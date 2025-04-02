@@ -1,0 +1,44 @@
+{
+  "name": "@sentry/lynx",
+  "homepage": "https://github.com/getsentry/sentry-lynx",
+  "repository": "https://github.com/getsentry/sentry-lynx",
+  "version": "0.0.0",
+  "description": "Official Sentry SDK for lynx",
+  "typings": "dist/index.d.ts",
+  "types": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "run-s clean build:ts",
+    "build:ts": "tsc",
+    "build:tarball": "bash scripts/build-tarball.sh",
+    "clean": "rimraf dist",
+    "circularDepCheck": "madge --circular dist/index.js",
+    "test": "vitest run",
+    "test:watch": "vitest watch"
+  },
+  "keywords": [
+    "lynx-js",
+    "sentry",
+    "crashreporting"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "Sentry",
+  "license": "MIT",
+  "dependencies": {
+    "@sentry/browser": "9.10.1",
+    "@sentry/core": "9.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.9.3",
+    "madge": "^6.1.0",
+    "npm-run-all2": "^7.0.2",
+    "rimraf": "^5.0.10",
+    "typescript": "~5.0.0",
+    "vitest": "^3.1.1"
+  }
+}

@@ -8,7 +8,13 @@
     "clean": "lerna run clean"
   },
   "devDependencies": {
+    "@sentry-internal/eslint-config-sdk": "9.10.1",
+    "@sentry-internal/eslint-plugin-sdk": "9.10.1",
+    "@sentry-internal/typescript": "9.10.1",
     "lerna": "^8.2.1"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "packageManager": "yarn@4.8.1"
 }
