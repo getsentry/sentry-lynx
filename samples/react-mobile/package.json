@@ -4,9 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "DEBUG=* rspeedy build && ./scripts/copy-bundle.sh",
-    "check": "biome check --write",
     "dev": "rspeedy dev",
-    "format": "biome format --write",
     "preview": "rspeedy preview"
   },
   "dependencies": {
