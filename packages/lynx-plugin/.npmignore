@@ -1,0 +1,7 @@
+*
+
+# Included to the final package
+!LICENSE.md
+!CHANGELOG.md
+!README.md
+!/dist/**/*
