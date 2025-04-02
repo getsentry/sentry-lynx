@@ -4,6 +4,7 @@
   "repository": "https://github.com/getsentry/sentry-lynx",
   "version": "0.0.0",
   "description": "Official Sentry Plugin for lynx",
+  "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -36,6 +37,7 @@
     "@sentry/webpack-plugin": "3.2.4"
   },
   "devDependencies": {
+    "@rsbuild/core": "^1.3.2",
     "@types/node": "^20.9.3",
     "madge": "^6.1.0",
     "npm-run-all2": "^7.0.2",
