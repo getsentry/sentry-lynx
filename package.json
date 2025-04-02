@@ -5,13 +5,15 @@
   "scripts": {
     "build": "lerna run build",
     "build:tarball": "lerna run build:tarball",
-    "clean": "lerna run clean"
+    "clean": "lerna run clean",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@sentry-internal/eslint-config-sdk": "9.10.1",
     "@sentry-internal/eslint-plugin-sdk": "9.10.1",
     "@sentry-internal/typescript": "9.10.1",
-    "lerna": "^8.2.1"
+    "lerna": "^8.2.1",
+    "patch-package": "^8.0.0"
   },
   "workspaces": [
     "packages/*"
