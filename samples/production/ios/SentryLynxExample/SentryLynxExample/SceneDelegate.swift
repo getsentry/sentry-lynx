@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  SentryLynxExample
+//  Hello-Lynx
 //
 //  Created by ByteDance on 2025/2/19.
 //
