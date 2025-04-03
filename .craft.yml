@@ -3,7 +3,7 @@ changelogPolicy: auto
 targets:
   - name: npm
   - name: github
-  # The first registry needs to be added manually
+  # The first registry needs to be added manually otherwise the CI release will fail
   # We can uncomment this after we did our first release
   # - name: registry
   #   sdks:
