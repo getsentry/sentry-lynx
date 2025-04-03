@@ -7836,20 +7836,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lynx-test@workspace:samples/react-mobile":
-  version: 0.0.0-use.local
-  resolution: "lynx-test@workspace:samples/react-mobile"
-  dependencies:
-    "@lynx-js/qrcode-rsbuild-plugin": "npm:^0.3.4"
-    "@lynx-js/react": "npm:^0.106.2"
-    "@lynx-js/react-rsbuild-plugin": "npm:^0.9.2"
-    "@lynx-js/rspeedy": "npm:^0.8.4"
-    "@lynx-js/types": "npm:^3.2.0"
-    "@types/react": "npm:^18.3.18"
-    typescript: "npm:~5.7.3"
-  languageName: unknown
-  linkType: soft
-
 "madge@npm:^6.1.0":
   version: 6.1.0
   resolution: "madge@npm:6.1.0"
@@ -10701,6 +10687,38 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"sentry-lynx-react-sample@npm:0.0.0, sentry-lynx-react-sample@workspace:samples/react":
+  version: 0.0.0-use.local
+  resolution: "sentry-lynx-react-sample@workspace:samples/react"
+  dependencies:
+    "@lynx-js/qrcode-rsbuild-plugin": "npm:^0.3.4"
+    "@lynx-js/react": "npm:^0.106.2"
+    "@lynx-js/react-rsbuild-plugin": "npm:^0.9.2"
+    "@lynx-js/rspeedy": "npm:^0.8.4"
+    "@lynx-js/types": "npm:^3.2.0"
+    "@types/react": "npm:^18.3.18"
+    typescript: "npm:~5.7.3"
+  languageName: unknown
+  linkType: soft
+
+"sentry-lynx-react-web-sample@workspace:samples/react/web":
+  version: 0.0.0-use.local
+  resolution: "sentry-lynx-react-web-sample@workspace:samples/react/web"
+  dependencies:
+    "@lynx-js/lynx-core": "npm:0.1.0"
+    "@lynx-js/web-core": "npm:^0.7.0"
+    "@lynx-js/web-elements": "npm:^0.2.4"
+    "@rsbuild/core": "npm:^1.2.3"
+    "@rsbuild/plugin-react": "npm:^1.1.0"
+    "@types/react": "npm:^19.0.8"
+    "@types/react-dom": "npm:^19.0.3"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    sentry-lynx-react-sample: "npm:0.0.0"
+    typescript: "npm:^5.7.3"
+  languageName: unknown
+  linkType: soft
+
 "serialize-javascript@npm:^6.0.1":
   version: 6.0.2
   resolution: "serialize-javascript@npm:6.0.2"
@@ -12202,23 +12220,6 @@ __metadata:
   checksum: 10c0/5b61ca583a95e2dd85d7078400190efd452e05751a64accb8c06ce4db65d7e0b0cde9917d705e826a2e05cc2548f61efde115ffa374c3e436d04be45c889e5b4
   languageName: node
   linkType: hard
-
-"web@workspace:samples/react-mobile/web":
-  version: 0.0.0-use.local
-  resolution: "web@workspace:samples/react-mobile/web"
-  dependencies:
-    "@lynx-js/lynx-core": "npm:0.1.0"
-    "@lynx-js/web-core": "npm:^0.7.0"
-    "@lynx-js/web-elements": "npm:^0.2.4"
-    "@rsbuild/core": "npm:^1.2.3"
-    "@rsbuild/plugin-react": "npm:^1.1.0"
-    "@types/react": "npm:^19.0.8"
-    "@types/react-dom": "npm:^19.0.3"
-    react: "npm:^19.0.0"
-    react-dom: "npm:^19.0.0"
-    typescript: "npm:^5.7.3"
-  languageName: unknown
-  linkType: soft
 
 "webidl-conversions@npm:^3.0.0":
   version: 3.0.1

@@ -18,7 +18,7 @@
   "workspaces": [
     "packages/*",
     "samples/*",
-    "samples/react-mobile/web"
+    "samples/react/web"
   ],
   "packageManager": "yarn@4.8.1"
 }

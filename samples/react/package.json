@@ -1,6 +1,6 @@
 {
-  "name": "lynx-test",
-  "version": "1.0.0",
+  "name": "sentry-lynx-react-sample",
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "build": "DEBUG=* rspeedy build && ./scripts/copy-bundle.sh",
