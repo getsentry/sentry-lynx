@@ -20,6 +20,7 @@
   "scripts": {
     "build": "run-s clean build:ts",
     "build:ts": "tsc",
+    "build:ts:watch": "tsc --watch",
     "build:tarball": "run-s build build:tarball:archive",
     "build:tarball:archive": "bash scripts/build-tarball.sh",
     "clean": "rimraf dist",
@@ -43,6 +44,7 @@
     "@sentry/core": "9.10.1"
   },
   "devDependencies": {
+    "@lynx-js/types": "^3.2.1",
     "@types/node": "^20.9.3",
     "madge": "^6.1.0",
     "npm-run-all2": "^7.0.2",
