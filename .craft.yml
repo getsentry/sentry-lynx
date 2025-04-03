@@ -4,7 +4,7 @@ targets:
   - name: npm
   - name: github
   # The first registry needs to be added manually otherwise the CI release will fail
-  # We can uncomment this after we did our first release
+  # We can uncomment this after we did our first release and added the registry manually
   # - name: registry
   #   sdks:
   #     npm:@sentry/lynx:
