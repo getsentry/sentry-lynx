@@ -1,0 +1,11 @@
+minVersion: 2.6.0
+changelogPolicy: auto
+targets:
+  - name: npm
+  - name: github
+  # The first registry needs to be added manually
+  # We can uncomment this after we did our first release
+  # - name: registry
+  #   sdks:
+  #     npm:@sentry/lynx:
+  #       includeNames: /^sentry-lynx-\d.*\.tgz$/
