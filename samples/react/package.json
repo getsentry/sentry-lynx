@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build": "DEBUG=* rspeedy build && ./scripts/copy-bundle.sh",
+    "build": "DEBUG='*' rspeedy build && ./scripts/copy-bundle.sh",
     "dev": "rspeedy dev",
     "preview": "rspeedy preview"
   },
