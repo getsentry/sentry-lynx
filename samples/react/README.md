@@ -1,34 +1,57 @@
-## Sentry Lynx Production Sample
+# Sentry Lynx Production Sample for iOS, Android and Web
 
-This is a ReactLynx project bootstrapped with `create-rspeedy`.
+This repository contains a sample application demonstrating how to use Sentry Lynx with React for iOS, Android, and Web platforms.
 
-## Getting Started
+## Prerequisites
 
-First, install the dependencies:
+- [Node.js](https://nodejs.org/) and [Yarn](https://yarnpkg.com/)
+- A Sentry account with an auth token
+- For mobile development: appropriate iOS/Android development environment
+
+## Installation
+
+Install the dependencies:
 
 ```bash
-npm install
+yarn install
 ```
 
-In `lynx.config.ts`, configure the org and project:
+## Configuration
+
+1. In `lynx.config.ts`, configure your Sentry organization and project:
 
 ```ts
 org: 'sentry-sdks',
 project: 'sentry-lynx',
+authToken: process.env.SENTRY_AUTH_TOKEN,
 ```
 
-Then, set up your `SENTRY_AUTH_TOKEN` environment variable:
+2. Set up your Sentry authentication token:
 
 ```bash
 export SENTRY_AUTH_TOKEN=<your-sentry-auth-token>
 ```
 
-Run the build:
+## Building the Application
+
+Build the Lynx bundle (this will copy it to the `android` and `ios` directories):
 
 ```bash
-npm run build
+yarn build
 ```
 
-This will build the Lynx bundle and copy it to the `android` and `ios` directories.
+## Running the Application
 
-Then you can run the Android or iOS app on your phone or the simulator.
+### Mobile
+
+- **iOS**: Open the iOS project in Xcode and run the app on your device or simulator
+- **Android**: Open the Android project in Android Studio and run the app on your device or emulator
+
+### Web
+
+Navigate to the web directory and start the development server:
+
+```bash
+cd web
+yarn dev
+```
