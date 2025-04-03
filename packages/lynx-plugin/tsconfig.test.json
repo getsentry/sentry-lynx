@@ -1,0 +1,11 @@
+{
+  "extends": "@sentry-internal/typescript/tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+    "test/**/*.ts"
+  ],
+  "paths": {
+    "@lib/*": ["src/*"],
+    "@lib": ["src"]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "extends": "@sentry-internal/typescript/tsconfig.json",
+  "include": [
+    "src/**/*.ts",
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "outDir": "dist",
+  }
+}
