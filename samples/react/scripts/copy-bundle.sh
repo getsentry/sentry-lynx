@@ -2,18 +2,13 @@
 
 # Define source and destination paths
 SOURCE_BUNDLE="./dist/main.lynx.bundle"
-ANDROID_DEST="./android/app/src/main/assets/main.lynx.bundle"
+ANDROID_DEST_DIR="./android/app/src/main/assets"
+ANDROID_DEST="$ANDROID_DEST_DIR/main.lynx.bundle"
 IOS_DEST="./ios/main.lynx.bundle"
 
 # Check if source file exists
 if [ ! -f "$SOURCE_BUNDLE" ]; then
   echo "Error: Source bundle not found at $SOURCE_BUNDLE"
-  exit 1
-fi
-
-# Check for existence of directories
-if [ ! -d "$(dirname "$ANDROID_DEST")" ]; then
-  echo "Error: Android destination directory not found at $(dirname "$ANDROID_DEST")"
   exit 1
 fi
 
@@ -23,6 +18,7 @@ if [ ! -d "$(dirname "$IOS_DEST")" ]; then
 fi
 
 # Copy the bundle to Android assets
+mkdir -p "$ANDROID_DEST_DIR"
 cp "$SOURCE_BUNDLE" "$ANDROID_DEST"
 echo "✅ Copied bundle to Android: $ANDROID_DEST"
 
