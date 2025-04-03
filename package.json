@@ -16,7 +16,8 @@
     "patch-package": "^8.0.0"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "samples/*"
   ],
   "packageManager": "yarn@4.8.1"
 }
