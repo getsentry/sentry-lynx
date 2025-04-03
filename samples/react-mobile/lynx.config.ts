@@ -11,6 +11,10 @@ export default defineConfig({
     }),
     pluginReactLynx(),
   ],
+  environments: {
+    web: {},
+    lynx: {},
+  },
   output: {
     sourceMap: {
       js: 'source-map',
