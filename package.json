@@ -16,7 +16,9 @@
     "patch-package": "^8.0.0"
   },
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "samples/*",
+    "samples/react/web"
   ],
   "packageManager": "yarn@4.8.1"
 }
