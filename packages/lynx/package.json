@@ -4,6 +4,7 @@
   "repository": "https://github.com/getsentry/sentry-lynx",
   "version": "0.0.0",
   "description": "Official Sentry SDK for lynx",
+  "type": "module",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
