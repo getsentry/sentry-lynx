@@ -4,23 +4,25 @@
   "repository": "https://github.com/getsentry/sentry-lynx",
   "version": "0.0.0",
   "description": "Official Sentry SDK for lynx",
-  "type": "module",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "module": "dist/esm/index.mjs",
+  "types": "dist/types/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/esm/index.mjs",
+      "types": "./dist/types/index.d.ts"
     },
     "./plugin": {
-      "import": "./plugin/index.js",
-      "types": "./plugin/index.d.ts"
+      "import": "./plugin/esm/index.mjs",
+      "types": "./plugin/esm/index.d.ts"
     }
   },
   "scripts": {
-    "build": "run-s clean build:ts",
-    "build:ts": "tsc",
-    "build:ts:watch": "tsc --watch",
+    "build": "run-s clean build:rollup build:typescript",
+    "build:watch": "run-p build:rollup:watch build:typescript:watch",
+    "build:rollup": "rollup --config rollup.config.mjs",
+    "build:rollup:watch": "rollup --config rollup.config.mjs --watch",
+    "build:typescript": "tsc --project tsconfig.types.json",
+    "build:typescript:watch": "tsc --project tsconfig.types.json --watch",
     "build:tarball": "run-s build build:tarball:archive",
     "build:tarball:archive": "bash scripts/build-tarball.sh",
     "clean": "rimraf dist",
@@ -45,10 +47,12 @@
   },
   "devDependencies": {
     "@lynx-js/types": "^3.2.1",
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^20.9.3",
     "madge": "^6.1.0",
     "npm-run-all2": "^7.0.2",
     "rimraf": "^5.0.10",
+    "rollup": "^4.39.0",
     "typescript": "~5.0.0",
     "vitest": "^3.1.1"
   }
