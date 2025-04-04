@@ -30,12 +30,6 @@ export function isNodeLike(): boolean {
   );
 }
 
-export function isLynxWebBackgroundWorker(): boolean {
-  // main thread: web SystemInfo is empty at the moment
-  return (globalThis.SystemInfo?.platform as string) === 'web';
-}
-
-
 export function getLynx(): UnsafeLynx | undefined {
   if (typeof lynx === 'undefined') {
     return undefined;
@@ -48,3 +42,7 @@ declare const window: unknown;
 export function isBrowserMainThread(): boolean {
   return  typeof window !== 'undefined' && !isNodeLike() && notMobile();
 }
+
+// TODO: Add isWebWorker
+// TODO: Add isLynxWebBackgroundWorker
+// TODO: Add isLynxWebMainThreadWorker

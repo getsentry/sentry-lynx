@@ -18,7 +18,7 @@ import { linkedErrorsIntegration } from '@sentry/browser';
 import { defaultStackParser } from '@sentry/browser';
 import { makeFetchTransport } from '@sentry/browser';
 import { dropTopLevelUndefinedKeys } from './utils/dropTopLevelUndefinedKeys';
-import { getLynx, isBrowserMainThread, notMobile } from './environment';
+import { getLynx, isBrowserMainThread, isMobile, notMobile } from './environment';
 
 /** Get the default integrations for the Lynx SDK. */
 export function getDefaultIntegrations(_options: Options): Integration[] {
@@ -119,8 +119,25 @@ export function init(lynxOptions: LynxOptions = {}): Client | undefined {
     ...options,
     stackParser: stackParserFromStackParserOptions(options.stackParser || defaultStackParser),
     integrations: getIntegrationsToSetup(options),
-    transport: options.transport || ((transportOptions) => makeFetchTransport(transportOptions, getLynx()?.fetch)),
+    transport: options.transport || ((transportOptions) => makeFetchTransport(transportOptions, getFetch())),
   };
 
   return initAndBind(LynxClient, clientOptions);
+}
+
+// TODO: type Fetch
+export function getFetch(): any {
+  if (isMobile()) {
+    return getLynx()?.fetch;
+  }
+
+  if (isBrowserMainThread()) {
+    undefined; // Will be resolved internally
+  }
+
+  // Most likely a web worker
+  // TODO: check if really a web worker
+  // Internal fetch resolution doesn't work for web workers and globalThis.fetch is also undefined
+  // https://github.com/getsentry/sentry-javascript/blob/de2c1ad309b850c1254c69890c96e869e297fa4c/packages/browser-utils/src/getNativeImplementation.ts#L27
+  return fetch;
 }
