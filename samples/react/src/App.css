@@ -12,12 +12,8 @@
     #ff6448 100%
   );
   box-shadow: 0px 12.93px 28.74px 0px #ffd28db2 inset;
-  border-radius: 50%;
   width: 200vw;
-  height: 200vw;
-  top: -60vw;
-  left: -14.27vw;
-  transform: rotate(15.25deg);
+  height: 200vh;
 }
 
 .App {
@@ -31,34 +27,6 @@
 
 text {
   color: var(--color-text);
-}
-
-.Banner {
-  flex: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.Logo {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-
-.Logo--react {
-  width: 100px;
-  height: 100px;
-  animation: Logo--spin infinite 20s linear;
-}
-
-.Logo--lynx {
-  width: 100px;
-  height: 100px;
-  animation: Logo--shake infinite 0.5s ease;
 }
 
 @keyframes Logo--spin {
@@ -83,10 +51,12 @@ text {
 }
 
 .Content {
+  margin-top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 100;
 }
 
 .Arrow {
@@ -116,4 +86,20 @@ text {
   font-size: 12px;
   margin: 5px;
   color: rgba(255, 255, 255, 0.65);
+}
+
+.Button {
+  border: 1px solid #fff;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 8px;
+}
+
+.Button:active {
+  background-color: #fff;
+  color: #000;
+}
+
+.ButtonText:active {
+  color: #000;
 }
