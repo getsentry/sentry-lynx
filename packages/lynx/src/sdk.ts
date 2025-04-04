@@ -119,7 +119,7 @@ export function init(lynxOptions: LynxOptions = {}): Client | undefined {
     ...options,
     stackParser: stackParserFromStackParserOptions(options.stackParser || defaultStackParser),
     integrations: getIntegrationsToSetup(options),
-    transport: options.transport || ((transportOptions) => makeFetchTransport(transportOptions)),
+    transport: options.transport || ((transportOptions) => makeFetchTransport(transportOptions, getLynx()?.fetch)),
   };
 
   return initAndBind(LynxClient, clientOptions);
