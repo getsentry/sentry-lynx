@@ -1,0 +1,55 @@
+{
+  "targetDefaults": {
+    "build": {
+      "cache": true,
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist"
+      ]
+    },
+    "build:watch": {
+      "dependsOn": []
+    },
+    "build:rollup": {
+      "dependsOn": []
+    },
+    "build:rollup:watch": {
+      "dependsOn": []
+    },
+    "build:typescript": {
+      "dependsOn": []
+    },
+    "build:typescript:watch": {
+      "dependsOn": []
+    },
+    "build:tarball": {
+      "dependsOn": []
+    },
+    "build:tarball:archive": {
+      "dependsOn": []
+    },
+    "clean": {
+      "dependsOn": []
+    },
+    "circularDepCheck": {
+      "dependsOn": []
+    },
+    "test": {
+      "cache": true,
+      "dependsOn": [
+        "^test"
+      ]
+    },
+    "test:watch": {
+      "dependsOn": []
+    },
+    "dev": {
+      "dependsOn": []
+    },
+    "preview": {
+      "dependsOn": []
+    }
+  }
+}
