@@ -1,9 +1,9 @@
-import { captureException, Client, defineIntegration, getClient, IntegrationFn } from "@sentry/core";
+import { captureException, Client, defineIntegration, getClient, type IntegrationFn } from "@sentry/core";
 import { isLynxBackgroundThread } from "../environment";
 
 export const INTEGRATION_NAME = 'LynxGlobalHandlers';
 
-const createGlobalHandlersIntegration = ({
+const createGlobalHandlersIntegration: IntegrationFn = ({
   background = true,
 }: {
   /**
@@ -13,8 +13,6 @@ const createGlobalHandlersIntegration = ({
    */
   background?: boolean;
 } = {}) => {
-
-
   return {
     name: INTEGRATION_NAME,
     setup: (client: Client) => {
@@ -23,7 +21,7 @@ const createGlobalHandlersIntegration = ({
       }
     },
   };
-}) satisfies IntegrationFn;
+};
 
 function installBackgroundUnhandledErrorHandler(client: Client) {
     if (isLynxBackgroundThread()) {
