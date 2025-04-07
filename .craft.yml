@@ -1,5 +1,6 @@
 minVersion: 2.6.0
 changelogPolicy: auto
+preReleaseCommand: bash scripts/craft-pre-release.sh
 targets:
   - name: npm
   - name: github
