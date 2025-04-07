@@ -10,9 +10,12 @@ import com.facebook.imagepipeline.memory.PoolConfig
 import com.facebook.imagepipeline.memory.PoolFactory
 import com.lynx.devtoolwrapper.LynxDevtoolGlobalHelper
 import com.lynx.service.devtool.LynxDevToolService
+import com.lynx.service.http.LynxHttpService
 import com.lynx.service.image.LynxImageService
 import com.lynx.service.log.LynxLogService
 import com.lynx.tasm.LynxEnv
+import com.lynx.tasm.eventreport.LynxEventReporter
+import com.lynx.tasm.service.ILynxEventReporterService
 import com.lynx.tasm.service.LynxServiceCenter
 
 class YourApplication : Application() {
@@ -31,6 +34,7 @@ class YourApplication : Application() {
 
         LynxServiceCenter.inst().registerService(LynxImageService.getInstance())
         LynxServiceCenter.inst().registerService(LynxLogService)
+        LynxServiceCenter.inst().registerService(LynxHttpService)
 
         // register devtool service
         LynxServiceCenter.inst().registerService(LynxDevToolService)
@@ -64,4 +68,15 @@ class YourApplication : Application() {
             }
         }
     }
+}
+
+internal object ReporterService : ILynxEventReporterService {
+  override fun onReportEvent(
+    p0: String,
+    p1: Int,
+    p2: MutableMap<String, out Any>,
+    p3: MutableMap<String, out Any>?
+  ) {
+    print("Received event: $p0, code: $p1, data: $p2, extra: $p3")
+  }
 }
