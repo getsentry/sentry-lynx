@@ -12,20 +12,20 @@ export type LynxGlobalHandlersIntegration = {
 
 export const INTEGRATION_NAME = 'LynxGlobalHandlers';
 
-const _globalHandlersIntegration = ((options: Partial<LynxGlobalHandlersIntegration> = {}) => {
+const createGlobalHandlersIntegration = ((options: Partial<LynxGlobalHandlersIntegration> = {}) => {
   const background = options.background || true;
 
   return {
     name: INTEGRATION_NAME,
     setup: (client: Client) => {
       if (background) {
-        _installBackgroundUnhandledErrorHandler(client);
+        installBackgroundUnhandledErrorHandler(client);
       }
     },
   };
 }) satisfies IntegrationFn;
 
-export function _installBackgroundUnhandledErrorHandler(client: Client) {
+function installBackgroundUnhandledErrorHandler(client: Client) {
     if (isLynxBackgroundThread()) {
       const app = (lynx as any).getApp()
       const originalHandleError = app.handleError;
@@ -56,4 +56,4 @@ export function _installBackgroundUnhandledErrorHandler(client: Client) {
 /**
  * Use this integration to set up capturing unhandled errors.
  */
-export const lynxGlobalHandlersIntegration = defineIntegration(_globalHandlersIntegration);
+export const lynxGlobalHandlersIntegration = defineIntegration(createGlobalHandlersIntegration);
