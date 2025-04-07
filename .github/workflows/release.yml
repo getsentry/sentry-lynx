@@ -42,4 +42,3 @@ jobs:
           version: ${{ github.event.inputs.version }}
           force: ${{ github.event.inputs.force }}
           merge_target: ${{ github.event.inputs.merge_target }}
-          
