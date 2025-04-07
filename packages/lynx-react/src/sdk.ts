@@ -19,6 +19,7 @@ import { defaultStackParser } from '@sentry/browser';
 import { makeFetchTransport } from '@sentry/browser';
 import { dropTopLevelUndefinedKeys } from './utils/dropTopLevelUndefinedKeys';
 import { getLynx, isBrowserMainThread, isMobile, notMobile } from './environment';
+import { lynxGlobalHandlersIntegration } from './integrations/globalHandlers';
 
 /** Get the default integrations for the Lynx SDK. */
 export function getDefaultIntegrations(_options: Options): Integration[] {
@@ -34,6 +35,7 @@ export function getDefaultIntegrations(_options: Options): Integration[] {
     linkedErrorsIntegration(),
     dedupeIntegration(),
     httpContextIntegration(),
+    lynxGlobalHandlersIntegration(),
   ];
 
   if (isBrowserMainThread()) {

@@ -1,3 +1,4 @@
+import { runOnMainThread } from '@lynx-js/react'
 import './App.css'
 import * as Sentry from '@sentry/lynx-react'
 
@@ -23,9 +24,22 @@ export function App() {
           <text className='Title'>Sentry</text>
           <text className='Subtitle'>on Lynx</text>
           <Button
-            text="Throw an error"
+            text="Throw an error in background thread"
             onTap={() => {
-              throw new Error('Sentry uncaught error')
+              throw new Error('Sentry uncaught error in background thread')
+            }}/>
+          <Button
+            text="Throw an error in main thread"
+            onTap={() => {
+              runOnMainThread(() => {
+                'main thread'
+                throw new Error('Sentry uncaught error in main thread')
+              })()
+            }}/>
+          <Button
+            text="Throw an unhandled rejection"
+            onTap={() => {
+              Promise.reject(new Error('Sentry unhandled rejection'))
             }}/>
           <Button
             text="Capture a message"
