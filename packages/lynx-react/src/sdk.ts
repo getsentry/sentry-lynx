@@ -125,9 +125,9 @@ export function init(lynxOptions: LynxOptions = {}): Client | undefined {
   return initAndBind(LynxClient, clientOptions);
 }
 
-export function getFetch(): typeof lynx.fetch | typeof fetch | undefined {
+export function getFetch(): typeof fetch | undefined {
   if (isMobile()) {
-    return getLynx()?.fetch;
+    return getLynx()?.fetch as typeof fetch;
   }
 
   if (isBrowserMainThread()) {
