@@ -14,8 +14,6 @@ import com.lynx.service.http.LynxHttpService
 import com.lynx.service.image.LynxImageService
 import com.lynx.service.log.LynxLogService
 import com.lynx.tasm.LynxEnv
-import com.lynx.tasm.eventreport.LynxEventReporter
-import com.lynx.tasm.service.ILynxEventReporterService
 import com.lynx.tasm.service.LynxServiceCenter
 
 class YourApplication : Application() {
