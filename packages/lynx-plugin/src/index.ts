@@ -1,6 +1,6 @@
 import type { RsbuildPlugin } from '@rsbuild/core'
 import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/webpack-plugin/webpack5';
-import { sentryMiddleware } from './middleware';
+import { createSentryMiddleware } from './middleware';
 import { logger } from '@sentry/core';
 import { PREFIX } from './prefix';
 
@@ -44,7 +44,7 @@ export function pluginSentryLynx(options: SentryWebpackPluginOptions): RsbuildPl
         config.dev.setupMiddlewares = [
           ...(config.dev.setupMiddlewares ?? []),
           (middlewares) => {
-            middlewares.unshift(sentryMiddleware);
+            middlewares.unshift(createSentryMiddleware(config));
           },
         ];
       });

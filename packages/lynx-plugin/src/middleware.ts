@@ -4,28 +4,39 @@ import { symbolicateFrames } from './symbolicator';
 import { logger } from '@sentry/core';
 import { PREFIX } from './prefix';
 import { tryCatch } from './utils/tryCatch';
+import { RsbuildConfig } from '@rsbuild/core';
 
 export type NextFunction = () => void;
 
-export const createSentryMiddleware = (
-  {
-    projectRootPath,
-  }: {
-    projectRootPath?: string;
-  },
-) => async (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
-  if (req.url === '/__sentry__/symbolicate') {
-    try {
-      await processSymbolicateRequest({ req, res, projectRootPath });
-    } catch (error) {
-      logger.error(`${PREFIX} Error processing symbolicate request: ${error}`);
-      res.statusCode = 500;
-      res.end('{ "error": "Internal Server Error" }');
-    }
-  } else {
-    next();
+export const createSentryMiddleware = (config: RsbuildConfig) => {
+  if (!config.root) {
+    logger.warn(`${PREFIX} No project root path provided. Symbolication will not work.`);
+    return noopMiddleware;
   }
+
+  if (!config.server?.port || !config.server?.host) {
+    logger.warn(`${PREFIX} No dev server port or host provided. Symbolication will not work.`);
+    return noopMiddleware;
+  }
+
+  return async (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
+    if (req.url === '/__sentry__/symbolicate') {
+      try {
+        await processSymbolicateRequest({ req, res, projectRootPath: config.root });
+      } catch (error) {
+        logger.error(`${PREFIX} Error processing symbolicate request: ${error}`);
+        res.statusCode = 500;
+        res.end('{ "error": "Internal Server Error" }');
+      }
+    } else {
+      next();
+    }
+  };
 }
+
+const noopMiddleware = (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
+  next();
+};
 
 async function processSymbolicateRequest({
   req,
