@@ -30,6 +30,10 @@ export function isNodeLike(): boolean {
   );
 }
 
+export function isLynxBackgroundThread(): boolean {
+  return typeof __BACKGROUND__ !== 'undefined' && __BACKGROUND__;
+}
+
 export function getLynx(): UnsafeLynx | undefined {
   if (typeof lynx === 'undefined') {
     return undefined;
