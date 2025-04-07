@@ -70,13 +70,3 @@ class YourApplication : Application() {
     }
 }
 
-internal object ReporterService : ILynxEventReporterService {
-  override fun onReportEvent(
-    p0: String,
-    p1: Int,
-    p2: MutableMap<String, out Any>,
-    p3: MutableMap<String, out Any>?
-  ) {
-    print("Received event: $p0, code: $p1, data: $p2, extra: $p3")
-  }
-}
