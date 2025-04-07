@@ -1,27 +1,39 @@
-import { useCallback } from '@lynx-js/react'
-
 import './App.css'
-import arrow from './assets/arrow.png'
-import reactLynxLogo from './assets/react-logo.png'
+import * as Sentry from '@sentry/lynx'
+
+Sentry.init({
+  dsn: 'https://b4d4959ce2272d9de84894b1a656db59@o447951.ingest.us.sentry.io/4509089868152832',
+  // TODO: On web true causes error calling warn on undefined
+  debug: true,
+  beforeSend: (event, hint) => {
+    console.log('beforeSend', event, hint)
+    return event
+  },
+})
 
 export function App() {
-  const onTap = useCallback(() => {
-    throw new Error('Sentry Test Error')
-  }, [])
   return (
     <view>
       <view className='Background' />
       <view className='App'>
-        <view className='Banner'>
-          <view className='Logo' bindtap={onTap}>
-            <image src={reactLynxLogo} className='Logo--react' />
-          </view>
-          <text className='Title'>React</text>
-          <text className='Subtitle'>on Lynx</text>
-        </view>
         <view className='Content'>
-          <image src={arrow} className='Arrow' />
-          <Button text="Send exception" onTap={onTap} />
+          <text className='Title'>Sentry</text>
+          <text className='Subtitle'>on Lynx</text>
+          <Button
+            text="Throw an error"
+            onTap={() => {
+              throw new Error('Sentry uncaught error')
+            }}/>
+          <Button
+            text="Capture a message"
+            onTap={() => {
+              Sentry.captureMessage('Sentry captured message')
+            }}/>
+          <Button
+            text="Capture an exception"
+            onTap={() => {
+              Sentry.captureException(new Error('Sentry captured exception'))
+            }}/>
         </view>
         <view style={{ flex: 1 }}></view>
       </view>
@@ -31,8 +43,8 @@ export function App() {
 
 export function Button({ text, onTap }: { text: string, onTap: () => void }) {
   return (
-    <view className="button" bindtap={onTap}>
-      <text>{text}</text>
+    <view className="Button" bindtap={onTap}>
+      <text className="ButtonText">{text}</text>
     </view>
   );
 }
