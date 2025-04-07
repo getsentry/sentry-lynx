@@ -30,7 +30,13 @@ export function isNodeLike(): boolean {
   );
 }
 
-export function getLynx(): UnsafeLynx | undefined {
+export function getLynx(): undefined | UnsafeLynx & {
+  getApp?: () => {
+    _params?: {
+      srcName?: string;
+    };
+  } | undefined;
+} {
   if (typeof lynx === 'undefined') {
     return undefined;
   }

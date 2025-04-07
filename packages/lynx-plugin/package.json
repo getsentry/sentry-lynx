@@ -37,6 +37,7 @@
   "author": "Sentry",
   "license": "MIT",
   "dependencies": {
+    "@sentry/core": "9.10.1",
     "@sentry/webpack-plugin": "3.3.1"
   },
   "devDependencies": {
