@@ -8,5 +8,5 @@ targets:
   # We can uncomment this after we did our first release and added the registry manually
   # - name: registry
   #   sdks:
-  #     npm:@sentry/lynx:
-  #       includeNames: /^sentry-lynx-\d.*\.tgz$/
+  #     npm:@sentry/lynx-react:
+  #       includeNames: /^sentry-lynx-react-\d.*\.tgz$/
