@@ -3,7 +3,7 @@ import type { UserWorkspaceConfig } from 'vitest/config'
 
 const config: UserWorkspaceConfig = defineProject({
   test: {
-    name: '@sentry/lynx',
+    name: '@sentry/lynx-react',
   },
 })
 

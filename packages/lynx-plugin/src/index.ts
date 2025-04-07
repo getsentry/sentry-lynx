@@ -7,7 +7,7 @@ import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/we
  * @example
  * ```ts
  * // lynx.config.ts
- * import { pluginSentryLynx } from '@sentry/lynx/plugin'
+ * import { pluginSentryLynx } from '@sentry/lynx-react/plugin'
  * export default {
  *   plugins: [pluginSentryLynx({
  *     org: 'your-organization',

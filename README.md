@@ -22,13 +22,13 @@ The Sentry SDK for [Lynx](https://lynxjs.org/) is a crash reporting and error mo
 To install the package and setup your project:
 
 ```sh
-npm install --save @sentry/lynx
+npm install --save @sentry/lynx-react
 ```
 
 How to use it:
 
 ```javascript
-import * as Sentry from "@sentry/lynx";
+import * as Sentry from "@sentry/lynx-react";
 
 Sentry.init({
   dsn: "__DSN__",

@@ -1,7 +1,7 @@
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin';
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin';
 import { defineConfig } from '@lynx-js/rspeedy';
-import { pluginSentryLynx } from '@sentry/lynx/plugin';
+import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
 
 export default defineConfig({
   plugins: [

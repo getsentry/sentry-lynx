@@ -1,9 +1,9 @@
 {
-  "name": "@sentry/lynx",
+  "name": "@sentry/lynx-react",
   "homepage": "https://github.com/getsentry/sentry-lynx",
   "repository": "https://github.com/getsentry/sentry-lynx",
   "version": "0.0.0",
-  "description": "Official Sentry SDK for lynx",
+  "description": "Official Sentry SDK for Lynx React",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
   "exports": {
@@ -32,6 +32,7 @@
   },
   "keywords": [
     "lynx-js",
+    "react",
     "sentry",
     "crashreporting"
   ],
@@ -46,6 +47,7 @@
     "@sentry/core": "9.10.1"
   },
   "devDependencies": {
+    "@lynx-js/react": "^0.106.3",
     "@lynx-js/types": "^3.2.1",
     "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^20.9.3",
@@ -55,5 +57,8 @@
     "rollup": "^4.39.0",
     "typescript": "~5.0.0",
     "vitest": "^3.1.1"
+  },
+  "peerDependencies": {
+    "@lynx-js/react": "*"
   }
 }
