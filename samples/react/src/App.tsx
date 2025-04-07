@@ -1,5 +1,5 @@
 import './App.css'
-import * as Sentry from '@sentry/lynx'
+import * as Sentry from '@sentry/lynx-react'
 
 Sentry.init({
   dsn: 'https://b4d4959ce2272d9de84894b1a656db59@o447951.ingest.us.sentry.io/4509089868152832',

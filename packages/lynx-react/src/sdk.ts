@@ -72,7 +72,7 @@ export function applyDefaultOptions(optionsArg: LynxOptions = {}): LynxOptions {
  *
  * ```
  *
- * import { init } from '@sentry/lynx';
+ * import { init } from '@sentry/lynx-react';
  *
  * init({
  *   dsn: '__DSN__',
@@ -83,7 +83,7 @@ export function applyDefaultOptions(optionsArg: LynxOptions = {}): LynxOptions {
  * @example
  * ```
  *
- * import { addBreadcrumb } from '@sentry/lynx';
+ * import { addBreadcrumb } from '@sentry/lynx-react';
  * addBreadcrumb({
  *   message: 'My Breadcrumb',
  *   // ...
@@ -94,7 +94,7 @@ export function applyDefaultOptions(optionsArg: LynxOptions = {}): LynxOptions {
  *
  * ```
  *
- * import * as Sentry from '@sentry/lynx';
+ * import * as Sentry from '@sentry/lynx-react';
  * Sentry.captureMessage('Hello, world!');
  * Sentry.captureException(new Error('Good bye'));
  * Sentry.captureEvent({
