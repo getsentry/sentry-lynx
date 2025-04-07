@@ -9,6 +9,9 @@ Sentry.init({
     console.log('beforeSend', event, hint)
     return event
   },
+  integrations: (integrations) => {
+    return integrations.filter((i) => i.name !== 'Dedupe')
+  },
 })
 
 export function App() {

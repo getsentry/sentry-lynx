@@ -10,7 +10,10 @@ Sentry.init({
   beforeSend: (event, hint) => {
     console.log('web_beforeSend', event, hint)
     return event
-  }
+  },
+  integrations: (integrations) => {
+    return integrations.filter((i) => i.name !== 'Dedupe')
+  },
 })
 
 const App = () => {
