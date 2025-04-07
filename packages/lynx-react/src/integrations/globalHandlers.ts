@@ -1,19 +1,19 @@
 import { captureException, Client, defineIntegration, getClient, IntegrationFn } from "@sentry/core";
 import { isLynxBackgroundThread } from "../environment";
 
-export type LynxGlobalHandlersIntegration = {
-  /**
-   * Set this to true if you want to catch unhandled errors in the background thread.
-   * 
-   * By default set to true.
-   */
-  background: boolean;
-};
-
 export const INTEGRATION_NAME = 'LynxGlobalHandlers';
 
-const createGlobalHandlersIntegration = ((options: Partial<LynxGlobalHandlersIntegration> = {}) => {
-  const background = options.background || true;
+const createGlobalHandlersIntegration = ({
+  background = true,
+}: {
+  /**
+   * Set this to true if you want to catch unhandled errors in the background thread.
+   *
+   * By default set to true.
+   */
+  background?: boolean;
+} = {}) => {
+
 
   return {
     name: INTEGRATION_NAME,
