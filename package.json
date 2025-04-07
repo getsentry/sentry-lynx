@@ -5,6 +5,7 @@
   "scripts": {
     "build": "lerna run build",
     "build:tarball": "lerna run build:tarball",
+    "test": "lerna run test",
     "clean": "lerna run clean",
     "postinstall": "patch-package"
   },
