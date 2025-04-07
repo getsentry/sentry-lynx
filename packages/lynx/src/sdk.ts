@@ -125,8 +125,7 @@ export function init(lynxOptions: LynxOptions = {}): Client | undefined {
   return initAndBind(LynxClient, clientOptions);
 }
 
-// TODO: type Fetch
-export function getFetch(): any {
+export function getFetch(): typeof lynx.fetch | typeof fetch | undefined {
   if (isMobile()) {
     return getLynx()?.fetch;
   }
@@ -136,7 +135,7 @@ export function getFetch(): any {
   }
 
   // Most likely a web worker
-  // TODO: check if really a web worker
+  // TODO: Verify if actually a web worker else return getNativeImplementation default fetch
   // Internal fetch resolution doesn't work for web workers and globalThis.fetch is also undefined
   // https://github.com/getsentry/sentry-javascript/blob/de2c1ad309b850c1254c69890c96e869e297fa4c/packages/browser-utils/src/getNativeImplementation.ts#L27
   return fetch;
