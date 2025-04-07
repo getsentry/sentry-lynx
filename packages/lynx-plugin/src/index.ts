@@ -1,5 +1,5 @@
 import type { RsbuildPlugin } from '@rsbuild/core'
-import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/webpack-plugin';
+import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/webpack-plugin/webpack5';
 
 /**
  * Create a rsbuild plugin for Sentry Lynx SDK.
@@ -7,7 +7,7 @@ import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/we
  * @example
  * ```ts
  * // lynx.config.ts
- * import { pluginSentryLynx } from '@sentry/lynx/plugin'
+ * import { pluginSentryLynx } from '@sentry/lynx-react/plugin'
  * export default {
  *   plugins: [pluginSentryLynx({
  *     org: 'your-organization',

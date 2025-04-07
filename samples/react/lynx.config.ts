@@ -1,6 +1,8 @@
 import { pluginQRCode } from '@lynx-js/qrcode-rsbuild-plugin';
 import { pluginReactLynx } from '@lynx-js/react-rsbuild-plugin';
 import { defineConfig } from '@lynx-js/rspeedy';
+import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
+
 export default defineConfig({
   plugins: [
     pluginQRCode({
@@ -10,6 +12,12 @@ export default defineConfig({
       },
     }),
     pluginReactLynx(),
+    pluginSentryLynx({
+      org: 'sentry-sdks',
+      project: 'sentry-lynx-sample',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+      debug: false,
+    }),
   ],
   environments: {
     web: {},
