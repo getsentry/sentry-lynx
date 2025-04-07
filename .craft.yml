@@ -9,4 +9,3 @@ targets:
   #   sdks:
   #     npm:@sentry/lynx:
   #       includeNames: /^sentry-lynx-\d.*\.tgz$/
-  
