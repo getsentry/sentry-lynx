@@ -1,5 +1,6 @@
-import { ServerResponse } from 'http';
-import { IncomingMessage } from 'http';
+import { ServerResponse } from 'node:http';
+import { IncomingMessage } from 'node:http';
+import * as path from 'node:path';
 import { symbolicateFrames } from './symbolicator';
 import { logger } from '@sentry/core';
 import { PREFIX } from './prefix';
@@ -14,15 +15,13 @@ export const createSentryMiddleware = (config: RsbuildConfig) => {
     return noopMiddleware;
   }
 
-  if (!config.server?.port || !config.server?.host) {
-    logger.warn(`${PREFIX} No dev server port or host provided. Symbolication will not work.`);
-    return noopMiddleware;
-  }
+  const projectRootPath = config.root
+  const serverPublicPath = path.join(projectRootPath, config.output?.distPath?.root ?? '');
 
   return async (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
     if (req.url === '/__sentry__/symbolicate') {
       try {
-        await processSymbolicateRequest({ req, res, projectRootPath: config.root });
+        await processSymbolicateRequest({ req, res, projectRootPath, serverPublicPath });
       } catch (error) {
         logger.error(`${PREFIX} Error processing symbolicate request: ${error}`);
         res.statusCode = 500;
@@ -42,10 +41,12 @@ async function processSymbolicateRequest({
   req,
   res,
   projectRootPath,
+  serverPublicPath,
 }: {
   req: IncomingMessage,
   res: ServerResponse,
   projectRootPath?: string,
+  serverPublicPath?: string,
 }) {
   const body = await getRawBody(req);
   const { data, error } = tryCatch(() => JSON.parse(body));
@@ -57,7 +58,11 @@ async function processSymbolicateRequest({
   }
 
   logger.debug(`${PREFIX} Symbolicating ${data.frames.length} frames.`);
-  const { data: symbolicatedFrames, error: symbolicationError } = tryCatch(() => symbolicateFrames(data.frames));
+  const { data: symbolicatedFrames, error: symbolicationError } = await tryCatch(() => symbolicateFrames({
+    frames: data.frames,
+    projectRootPath,
+    serverPublicPath,
+  }));
   if (symbolicationError) {
     logger.error(`${PREFIX} Error symbolicating frames: ${symbolicationError}`);
     res.statusCode = 500;
@@ -65,6 +70,7 @@ async function processSymbolicateRequest({
     return;
   }
 
+  res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ frames: symbolicatedFrames }));
 }
 

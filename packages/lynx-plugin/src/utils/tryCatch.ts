@@ -6,17 +6,17 @@ type Success<T> = {
 
 type Failure = {
   data: null;
-  error: unknown;
+  error: Error;
 };
 
 type Result<T> = Success<T> | Failure;
 
 export function tryCatch<T>(
-  func: () => T,
-): Result<T>;
-export function tryCatch<T>(
   func: () => Promise<T>,
 ): Promise<Result<T>>;
+export function tryCatch<T>(
+  func: () => T,
+): Result<T>;
 export function tryCatch<T>(
   func: () => Promise<T> | T,
 ): Promise<Result<T>> | Result<T> {
@@ -25,10 +25,10 @@ export function tryCatch<T>(
     if (data instanceof Promise) {
       return data
         .then(result => ({ data: result, error: null }))
-        .catch(error => ({ data: null, error }));
+        .catch(error => ({ data: null, error: error as Error }));
     }
     return { data, error: null };
   } catch (error) {
-    return { data: null, error: error };
+    return { data: null, error: error as Error };
   }
 }
