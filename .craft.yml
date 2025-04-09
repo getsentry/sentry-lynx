@@ -10,3 +10,5 @@ targets:
   #   sdks:
   #     npm:@sentry/lynx-react:
   #       includeNames: /^sentry-lynx-react-\d.*\.tgz$/
+  #     npm:@sentry-internal/lynx-plugin:
+  #       includeNames: /^sentry-internal-lynx-plugin-\d.*\.tgz$/
