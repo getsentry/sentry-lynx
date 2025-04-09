@@ -35,10 +35,42 @@ Sentry.init({
 });
 
 Sentry.setTag("myTag", "tag-value");
-Sentry.setExtra("myExtra", "extra-value");
+Sentry.setContext("myContext", {"key": "value"});
 Sentry.addBreadcrumb({ message: "test" });
 
 Sentry.captureMessage("Hello Sentry!");
+Sentry.captureException(new Error("Sentry Test Error"));
+```
+
+To get readable errors and uploaded source maps add:
+
+```javascript
+// lynx.config.ts
+import { defineConfig } from '@lynx-js/rspeedy';
+import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
+
+export default defineConfig({
+  plugins: [
+    // ... other plugins
+    pluginSentryLynx({
+      org: 'your-sentry-organization-slug',
+      project: 'your-sentry-project-slug',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+  ],
+  output: {
+    sourceMap: {
+      js: 'source-map',
+    },
+  },
+});
+```
+
+Build Lynx for release with source maps:
+
+```bash
+# DEBUG='*' will ensure source maps are generated (and not deleted), so they can be uploaded to Sentry
+DEBUG='*' rspeedy build
 ```
 
 ## Resources
