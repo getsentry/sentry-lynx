@@ -16,5 +16,4 @@ yarn install
 # --include-merged-tags - include tags from merged branches when detecting changed packages.
 # --yes - skip all confirmation prompts
 yarn lerna version --force-publish --exact --no-git-tag-version --no-push --include-merged-tags --yes "${NEW_VERSION}"
-yarn set-version-samples
-node scripts/version-bump.js
+node scripts/version-bump.mjs
