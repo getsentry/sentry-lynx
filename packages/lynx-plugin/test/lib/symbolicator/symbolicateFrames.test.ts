@@ -1,7 +1,9 @@
 import * as path  from 'node:path';
 import * as fs from 'node:fs';
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { symbolicateFrames } from '../../../src/symbolicator';
+import { logger } from '@sentry/core';
+import dedent from 'dedent';
 
 // Can't be in place, as it will get recognized by the test runner as a source map
 const SOURCE_MAP_URL_KEY = 'sourceMappingURL';
@@ -116,6 +118,42 @@ describe('symbolicateFrames', () => {
       ]);
     });
 
+    it('should pass through frames without lineno or colno', async () => {
+      const warnSpy = vi.spyOn(logger, 'warn');
+
+      await symbolicateFrames({
+        frames: [
+          {
+            debug_id: '1',
+            filename: 'file://view2/assets/main.mjs',
+            lineno: 2,
+            colno: 20,
+          },
+          {
+            debug_id: '2',
+            filename: 'file://view2/assets/main.mjs',
+            lineno: 2,
+          },
+          {
+            debug_id: '3',
+            filename: 'file://view2/assets/main.mjs',
+          },
+        ],
+        projectRootPath: path.join(TMP_FIXTURES_PATH, 'bundle'),
+        serverPublicPath: path.join(TMP_FIXTURES_PATH, 'bundle/dist'),
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining(dedent`Skipping frame without lineno or colno: {
+        "debug_id": "2",
+        "filename": "file://view2/assets/main.mjs",
+        "lineno": 2
+      }`));
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining(dedent`Skipping frame without lineno or colno: {
+        "debug_id": "3",
+        "filename": "file://view2/assets/main.mjs"
+      }`));
+    });
+
     it('should pass through frames without a filename', async () => {
       const symbolicatedFrames = await symbolicateFrames({
         frames: [
@@ -136,6 +174,28 @@ describe('symbolicateFrames', () => {
           colno: 20,
         },
       ]);
+    });
+
+    it('should print a warning when skipping a frame without a filename', async () => {
+      const warnSpy = vi.spyOn(logger, 'warn');
+
+      await symbolicateFrames({
+        frames: [
+          {
+            debug_id: '1',
+            lineno: 2,
+            colno: 20,
+          },
+        ],
+        projectRootPath: path.join(TMP_FIXTURES_PATH, 'bundle'),
+        serverPublicPath: path.join(TMP_FIXTURES_PATH, 'bundle/dist'),
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining(dedent`Skipping frame without filename: {
+        "debug_id": "1",
+        "lineno": 2,
+        "colno": 20
+      }`));
     });
   });
 
@@ -198,6 +258,24 @@ describe('symbolicateFrames', () => {
     });
 
     itShouldPassThroughTheUnsymbolicatedFrame();
+
+    it('should print a warning when failed to read the bundle file', async () => {
+      const warnSpy = vi.spyOn(logger, 'warn');
+
+      await symbolicateFrames({
+        frames: [
+          {
+            filename: 'file://view2/assets/main.mjs',
+            lineno: 2,
+            colno: 20,
+          },
+        ],
+        projectRootPath: path.join(TMP_FIXTURES_PATH, 'bundle'),
+        serverPublicPath: path.join(TMP_FIXTURES_PATH, 'bundle/dist'),
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/Failed to read file .*\/bundle\/dist\/assets\/main\.mjs/));
+    });
   });
 
   describe('missing source mapping url in bundle file', () => {
@@ -207,6 +285,24 @@ describe('symbolicateFrames', () => {
     });
 
     itShouldPassThroughTheUnsymbolicatedFrame();
+
+    it('should print a warning when no source map url found in the bundle file', async () => {
+      const warnSpy = vi.spyOn(logger, 'warn');
+
+      await symbolicateFrames({
+        frames: [
+          {
+            filename: 'file://view2/assets/main.mjs',
+            lineno: 2,
+            colno: 20,
+          },
+        ],
+        projectRootPath: path.join(TMP_FIXTURES_PATH, 'bundle'),
+        serverPublicPath: path.join(TMP_FIXTURES_PATH, 'bundle/dist'),
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/No source map url found in .*\/bundle\/dist\/assets\/main\.mjs/));
+    });
   });
 
   describe('missing source map file', () => {
@@ -215,6 +311,24 @@ describe('symbolicateFrames', () => {
     });
 
     itShouldPassThroughTheUnsymbolicatedFrame();
+
+    it('should print a warning when failed to read the source map file', async () => {
+      const warnSpy = vi.spyOn(logger, 'warn');
+
+      await symbolicateFrames({
+        frames: [
+          {
+            filename: 'file://view2/assets/main.mjs',
+            lineno: 2,
+            colno: 20,
+          },
+        ],
+        projectRootPath: path.join(TMP_FIXTURES_PATH, 'bundle'),
+        serverPublicPath: path.join(TMP_FIXTURES_PATH, 'bundle/dist'),
+      });
+
+      expect(warnSpy).toHaveBeenCalledWith(expect.stringMatching(/Failed to read source map .*\/bundle\/dist\/assets\/main\.mjs/));
+    });
   });
 });
 

@@ -6,24 +6,31 @@ import { logger } from '@sentry/core';
 import { PREFIX } from './prefix';
 import { tryCatch } from './utils/tryCatch';
 import { RsbuildConfig } from '@rsbuild/core';
+import { getRawBody } from './utils/getRawBody';
+
+export const SENTRY_SYMBOLICATE_ENDPOINT = '/__sentry__/symbolicate';
 
 export type NextFunction = () => void;
 
-export const createSentryMiddleware = (config: RsbuildConfig) => {
+export const createSentrySymbolicatorMiddleware = (config: RsbuildConfig) => {
   if (!config.root) {
     logger.warn(`${PREFIX} No project root path provided. Symbolication will not work.`);
     return noopMiddleware;
   }
 
   const projectRootPath = config.root
-  const serverPublicPath = path.join(projectRootPath, config.output?.distPath?.root ?? '');
+  const distPath = config.output?.distPath?.root ?? './'
+  const serverPublicPath = path.isAbsolute(distPath)
+    ? distPath
+    : path.join(projectRootPath, distPath);
 
   return async (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
-    if (req.url === '/__sentry__/symbolicate') {
+    if (req.url?.startsWith(SENTRY_SYMBOLICATE_ENDPOINT)) {
       try {
         await processSymbolicateRequest({ req, res, projectRootPath, serverPublicPath });
       } catch (error) {
         logger.error(`${PREFIX} Error processing symbolicate request: ${error}`);
+        res.setHeader('Content-Type', 'application/json');
         res.statusCode = 500;
         res.end('{ "error": "Internal Server Error" }');
       }
@@ -33,11 +40,11 @@ export const createSentryMiddleware = (config: RsbuildConfig) => {
   };
 }
 
-const noopMiddleware = (req: IncomingMessage, res: ServerResponse, next: NextFunction) => {
+export const noopMiddleware = (_req: IncomingMessage, _res: ServerResponse, next: NextFunction) => {
   next();
 };
 
-async function processSymbolicateRequest({
+export async function processSymbolicateRequest({
   req,
   res,
   projectRootPath,
@@ -49,9 +56,11 @@ async function processSymbolicateRequest({
   serverPublicPath?: string,
 }) {
   const body = await getRawBody(req);
+  res.setHeader('Content-Type', 'application/json');
+
   const { data, error } = tryCatch(() => JSON.parse(body));
   if (error) {
-    logger.error(`${PREFIX} Error parsing symbolicate request: ${error}`);
+    logger.error(`${PREFIX} Error parsing symbolicate request body: ${body}\nerror: ${error}`);
     res.statusCode = 400;
     res.end('{ "error": "Bad Request" }');
     return;
@@ -70,19 +79,5 @@ async function processSymbolicateRequest({
     return;
   }
 
-  res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify({ frames: symbolicatedFrames }));
-}
-
-function getRawBody(request: IncomingMessage): Promise<string> {
-  return new Promise((resolve, reject) => {
-    let data = '';
-    request.on('data', chunk => {
-      data += chunk;
-    });
-    request.on('end', () => {
-      resolve(data);
-    });
-    request.on('error', reject);
-  });
 }

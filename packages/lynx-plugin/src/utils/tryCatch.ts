@@ -29,6 +29,9 @@ export function tryCatch<T>(
     }
     return { data, error: null };
   } catch (error) {
-    return { data: null, error: error as Error };
+    if (error instanceof Error) {
+      return { data: null, error };
+    }
+    return { data: null, error: new Error(String(error)) };
   }
 }

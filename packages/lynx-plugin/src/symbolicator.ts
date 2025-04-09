@@ -23,14 +23,14 @@ export async function symbolicateFrames({
   for (const frame of frames) {
     const { lineno, colno, filename } = frame;
     if (!lineno || !colno) {
-      logger.warn(`${PREFIX} Frame ${filename} has a lineno ${lineno} or colno ${colno}`);
+      logger.warn(`${PREFIX} Skipping frame without lineno or colno: ${JSON.stringify(frame, null, 2)}`);
       symbolicatedFrames.push(frame);
       continue;
     }
 
     const filepath = lynxUrlToPath(filename);
     if (!filepath) {
-      logger.warn(`${PREFIX} Frame ${filename} does not have a valid filepath.`);
+      logger.warn(`${PREFIX} Skipping frame without filename: ${JSON.stringify(frame, null, 2)}`);
       symbolicatedFrames.push(frame);
       continue;
     }
@@ -38,18 +38,19 @@ export async function symbolicateFrames({
     const resolvedPath = path.resolve(serverPublicPath, filepath);
     const { data: fileContents, error } = await tryCatch(() => fs.promises.readFile(resolvedPath, 'utf8'));
     if (error) {
-      logger.warn(`${PREFIX} Failed to read file ${filepath}: ${error}`);
+      logger.warn(`${PREFIX} Failed to read file ${resolvedPath}: ${error}`);
       symbolicatedFrames.push(frame);
       continue;
     }
 
-    const sourceMapUrl = extractSourceMapUrl(filepath, fileContents);
+    const sourceMapUrl = extractSourceMapUrl(fileContents);
     if (!sourceMapUrl) {
-      logger.warn(`${PREFIX} No source map url found in ${filepath}`);
+      logger.warn(`${PREFIX} No source map url found in ${resolvedPath}`);
       symbolicatedFrames.push(frame);
       continue;
     }
 
+    // Example: http://localhost:3000/assets/main.mjs.map
     const sourceMapPath = urlToPath(sourceMapUrl)?.slice(1); // remove leading '/'
     if (!sourceMapPath) {
       logger.warn(`${PREFIX} Source map url ${sourceMapUrl} is not a valid path`);
@@ -114,7 +115,7 @@ export function urlToPath(filename: string | undefined): string | undefined {
 }
 
 // https://github.com/lynx-family/lynx/blob/c9ba416cd90ef6d04565385a399dc245e616cced/devtool/lynx_devtool/resources/lynx-logbox/src/utils/getSourceMap.ts#L69
-function extractSourceMapUrl(_fileUri: string, fileContents: string): string | undefined {
+function extractSourceMapUrl(fileContents: string): string | undefined {
   const regex = /\/\/[#@] ?sourceMappingURL=([^\s'"]+)\s*$/gm;
   let match: RegExpExecArray | null = null;
   for (;;) {

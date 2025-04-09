@@ -1,6 +1,6 @@
 import type { RsbuildPlugin } from '@rsbuild/core'
 import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/webpack-plugin/webpack5';
-import { createSentryMiddleware } from './middleware';
+import { createSentrySymbolicatorMiddleware } from './middleware';
 import { logger } from '@sentry/core';
 import { PREFIX } from './prefix';
 
@@ -22,8 +22,15 @@ import { PREFIX } from './prefix';
  *
  * @public
  */
-export function pluginSentryLynx(options: SentryWebpackPluginOptions): RsbuildPlugin {
-  const { debug } = options;
+export function pluginSentryLynx(options: SentryWebpackPluginOptions & {
+  /**
+   * When enabled, the plugin will use the local symbolicator to symbolicate the stack traces from development builds.
+   *
+   * @default true
+   */
+  localSymbolication?: boolean,
+}): RsbuildPlugin {
+  const { debug, localSymbolication = true } = options;
   if (debug) {
     logger.enable();
   }
@@ -35,19 +42,21 @@ export function pluginSentryLynx(options: SentryWebpackPluginOptions): RsbuildPl
         config.plugins?.push(sentryWebpackPlugin(options));
       });
 
-      api.modifyRsbuildConfig((config) => {
-        if (!config.dev) {
-          logger.warn(`${PREFIX} No dev configuration found for Sentry Middleware.`);
-          return;
-        }
+      if (localSymbolication) {
+        api.modifyRsbuildConfig((config) => {
+          if (!config.dev) {
+            logger.warn(`${PREFIX} No dev configuration found for Sentry Middleware.`);
+            return;
+          }
 
-        config.dev.setupMiddlewares = [
-          ...(config.dev.setupMiddlewares ?? []),
-          (middlewares) => {
-            middlewares.unshift(createSentryMiddleware(config));
-          },
-        ];
-      });
+          config.dev.setupMiddlewares = [
+            ...(config.dev.setupMiddlewares ?? []),
+            (middlewares) => {
+              middlewares.unshift(createSentrySymbolicatorMiddleware(config));
+            },
+          ];
+        });
+      }
     },
   };
 }
