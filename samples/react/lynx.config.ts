@@ -16,7 +16,8 @@ export default defineConfig({
       org: 'sentry-sdks',
       project: 'sentry-lynx-sample',
       authToken: process.env.SENTRY_AUTH_TOKEN,
-      debug: false,
+      localSymbolication: true,
+      debug: true,
     }),
   ],
   environments: {

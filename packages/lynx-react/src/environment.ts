@@ -34,17 +34,23 @@ export function isLynxBackgroundThread(): boolean {
   return typeof __BACKGROUND__ !== 'undefined' && __BACKGROUND__;
 }
 
-export function getLynx(): UnsafeLynx | undefined {
-  if (typeof lynx === 'undefined') {
-    return undefined;
-  }
-  return lynx;
-}
-
 declare const window: unknown;
 
 export function isBrowserMainThread(): boolean {
   return  typeof window !== 'undefined' && !isNodeLike() && notMobile();
+}
+
+export function getLynx(): undefined | UnsafeLynx & {
+  getApp?: () => {
+    _params?: {
+      srcName?: string;
+    };
+  } | undefined;
+} {
+  if (typeof lynx === 'undefined') {
+    return undefined;
+  }
+  return lynx;
 }
 
 // TODO: Add isWebWorker
