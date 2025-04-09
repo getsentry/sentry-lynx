@@ -1,5 +1,3 @@
-
-
 import { describe, expect, it, vi } from 'vitest';
 import { createSentrySymbolicatorMiddleware, noopMiddleware, SENTRY_SYMBOLICATE_ENDPOINT } from '../../../src/middleware';
 import { logger } from '@sentry/core';
