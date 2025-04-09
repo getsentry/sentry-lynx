@@ -6,7 +6,7 @@ export function getFetch(): typeof fetch | undefined {
   }
 
   if (isBrowserMainThread()) {
-    undefined; // Will be resolved internally
+    return undefined; // Will be resolved internally
   }
 
   // Most likely a web worker
