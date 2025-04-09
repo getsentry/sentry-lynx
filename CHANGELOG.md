@@ -2,7 +2,60 @@
 
 ## Unreleased
 
-- Automatic upload of background thread source maps when building the app
-- Automatic report caught unhandled errors in the background thread to Sentry 
-- Local symbolication of stacktraces in debug mode
-- API for manually reporting errors with `Sentry.captureException`
+Initial preview release of the Sentry Lynx SDK. This release focuses on error monitoring
+of the background JavaScript thread of Lynx React mobile applications.
+
+To get started, install the `@sentry/lynx-react` package in your project.
+Then add the Sentry Lynx Plugin to upload source maps and see readable stacktraces in Sentry.
+
+```js
+// App.tsx
+import * as Sentry from '@sentry/lynx-react';
+
+Sentry.init({
+  dsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
+});
+```
+
+```js
+// lynx.config.ts
+import { defineConfig } from '@lynx-js/rspeedy';
+import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
+
+export default defineConfig({
+  plugins: [
+    // ... other plugins
+    pluginSentryLynx({
+      org: 'your-sentry-organization-slug',
+      project: 'your-sentry-project-slug',
+      authToken: process.env.SENTRY_AUTH_TOKEN,
+    }),
+  ],
+  output: {
+    sourceMap: {
+      js: 'source-map',
+    },
+  },
+});
+```
+
+To build the app with source maps, run:
+
+```bash
+# DEBUG='*' will ensure source maps are generated (and not deleted), so they can be uploaded to Sentry
+DEBUG='*' rspeedy build
+```
+
+### Features
+
+- Automatic upload of background thread source maps when building the app ([#8](https://github.com/getsentry/sentry-lynx/pull/8))
+- Automatic report caught unhandled errors in the background thread to Sentry ([#18](https://github.com/getsentry/sentry-lynx/pull/18))
+- Local symbolication of background thread stacktraces in debug mode ([#24](https://github.com/getsentry/sentry-lynx/pull/24))
+- API for manually reporting errors with `Sentry.captureException` ([#21](https://github.com/getsentry/sentry-lynx/pull/21))
+
+### Support
+
+If you encounter any bugs or have feature requests, please:
+- Open an issue at https://github.com/getsentry/sentry-lynx/issues
+- Join the discussion on [Sentry Discord](https://discord.gg/sentry)
+
