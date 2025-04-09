@@ -39,6 +39,7 @@ Sentry.setContext("myContext", {"key": "value"});
 Sentry.addBreadcrumb({ message: "test" });
 
 Sentry.captureMessage("Hello Sentry!");
+Sentry.captureException(new Error("Sentry Test Error"));
 ```
 
 To get readable errors and uploaded source maps add:
