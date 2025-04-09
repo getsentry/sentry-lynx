@@ -1,3 +1,5 @@
+# Changelog
+
 ## Unreleased
 
 - Automatic upload of background thread source maps when building the app
