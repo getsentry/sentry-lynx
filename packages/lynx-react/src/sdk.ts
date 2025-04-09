@@ -21,6 +21,7 @@ import { dropTopLevelUndefinedKeys } from './utils/dropTopLevelUndefinedKeys';
 import { isBrowserMainThread, notMobile } from './environment';
 import { getFetch } from './utils/fetch';
 import { developmentSymbolicatorIntegration } from './integrations/developmentSymbolicator';
+import { lynxGlobalHandlersIntegration } from './integrations/globalHandlers';
 
 /** Get the default integrations for the Lynx SDK. */
 export function getDefaultIntegrations(_options: Options): Integration[] {
@@ -37,6 +38,7 @@ export function getDefaultIntegrations(_options: Options): Integration[] {
     dedupeIntegration(),
     httpContextIntegration(),
     developmentSymbolicatorIntegration(),
+    lynxGlobalHandlersIntegration(),
   ];
 
   if (isBrowserMainThread()) {

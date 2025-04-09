@@ -30,6 +30,16 @@ export function isNodeLike(): boolean {
   );
 }
 
+export function isLynxBackgroundThread(): boolean {
+  return typeof __BACKGROUND__ !== 'undefined' && __BACKGROUND__;
+}
+
+declare const window: unknown;
+
+export function isBrowserMainThread(): boolean {
+  return  typeof window !== 'undefined' && !isNodeLike() && notMobile();
+}
+
 export function getLynx(): undefined | UnsafeLynx & {
   getApp?: () => {
     _params?: {
@@ -41,12 +51,6 @@ export function getLynx(): undefined | UnsafeLynx & {
     return undefined;
   }
   return lynx;
-}
-
-declare const window: unknown;
-
-export function isBrowserMainThread(): boolean {
-  return  typeof window !== 'undefined' && !isNodeLike() && notMobile();
 }
 
 // TODO: Add isWebWorker

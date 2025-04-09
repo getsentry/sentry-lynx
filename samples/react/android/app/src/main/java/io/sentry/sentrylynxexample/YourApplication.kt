@@ -10,6 +10,7 @@ import com.facebook.imagepipeline.memory.PoolConfig
 import com.facebook.imagepipeline.memory.PoolFactory
 import com.lynx.devtoolwrapper.LynxDevtoolGlobalHelper
 import com.lynx.service.devtool.LynxDevToolService
+import com.lynx.service.http.LynxHttpService
 import com.lynx.service.image.LynxImageService
 import com.lynx.service.log.LynxLogService
 import com.lynx.tasm.LynxEnv
@@ -31,6 +32,7 @@ class YourApplication : Application() {
 
         LynxServiceCenter.inst().registerService(LynxImageService.getInstance())
         LynxServiceCenter.inst().registerService(LynxLogService)
+        LynxServiceCenter.inst().registerService(LynxHttpService)
 
         // register devtool service
         LynxServiceCenter.inst().registerService(LynxDevToolService)
