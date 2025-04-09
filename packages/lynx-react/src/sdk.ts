@@ -18,7 +18,7 @@ import { linkedErrorsIntegration } from '@sentry/browser';
 import { defaultStackParser } from '@sentry/browser';
 import { makeFetchTransport } from '@sentry/browser';
 import { dropTopLevelUndefinedKeys } from './utils/dropTopLevelUndefinedKeys';
-import { getLynx, isBrowserMainThread, isMobile, notMobile } from './environment';
+import { getLynx, isBrowserMainThread, isLynxBackgroundThread, isMobile, notMobile } from './environment';
 import { lynxGlobalHandlersIntegration } from './integrations/globalHandlers';
 
 /** Get the default integrations for the Lynx SDK. */
@@ -110,6 +110,11 @@ export function applyDefaultOptions(optionsArg: LynxOptions = {}): LynxOptions {
  * @see {@link LynxOptions} for documentation on configuration options.
  */
 export function init(lynxOptions: LynxOptions = {}): Client | undefined {
+  if (!isLynxBackgroundThread() && !isBrowserMainThread()) {
+    logger.info('Sentry initialization skipped: Sentry is only enabled on the mobile background thread or browser main thread.')
+    return
+  }
+
   const options = applyDefaultOptions(lynxOptions);
 
   if (!supportsFetch() && notMobile()) {
