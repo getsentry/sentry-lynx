@@ -35,7 +35,7 @@ export function developmentSymbolicatorIntegration(): Integration {
 }
 
 async function symbolicateFrames(frames: StackFrame[] | undefined): Promise<StackFrame[] | undefined> {
-  if (!frames) {  
+  if (!frames) {
     return undefined;
   }
 
@@ -56,7 +56,7 @@ async function symbolicateFrames(frames: StackFrame[] | undefined): Promise<Stac
       return frames;
     }
 
-    logger.debug(`${PREFIX} Symbolicating ${frames.length} frames.`);
+    logger.debug(`${PREFIX} Symbolicating ${frames.length} frames using ${developmentServerUrl}.`);
     const response = await fetch(`${developmentServerUrl}${SYMBOLICATOR_ENDPOINT}`, {
       method: 'POST',
       body: JSON.stringify({ frames }),
@@ -99,6 +99,8 @@ export function getDevelopmentServerUrl(): string | undefined {
  * Converts http://192.168.0.94:3000/main.lynx.bundle?fullscreen=true to http://192.168.0.94:3000
  */
 export function parseUrlFromSourceName(sourceName: string): undefined | string {
-  const url = new URL(sourceName);
-  return `${url.protocol}//${url.host}`;
+  // Match protocol, hostname, and port, stopping before any path or query params
+  // Can't use URL because it's noop in Lynx
+  const match = sourceName.match(/^(.*?:\/\/[^/]+)/);
+  return match ? match[1] : sourceName;
 }
