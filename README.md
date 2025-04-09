@@ -55,9 +55,6 @@ export default defineConfig({
       org: 'your-sentry-organization-slug',
       project: 'your-sentry-project-slug',
       authToken: process.env.SENTRY_AUTH_TOKEN,
-      // To see more verbose logging about the plugin's operation
-      // set `debug` to true
-      debug: false,
     }),
   ],
   output: {
