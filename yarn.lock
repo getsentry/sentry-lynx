@@ -3955,6 +3955,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:^5.3.0":
+  version: 5.4.1
+  resolution: "chalk@npm:5.4.1"
+  checksum: 10c0/b23e88132c702f4855ca6d25cb5538b1114343e41472d5263ee8a37cccfccd9c4216d111e1097c6a27830407a1dc81fecdf2a56f2c63033d4dbbd88c10b0dcef
+  languageName: node
+  linkType: hard
+
 "chardet@npm:^0.7.0":
   version: 0.7.0
   resolution: "chardet@npm:0.7.0"
@@ -6376,7 +6383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7":
+"glob@npm:^10.2.2, glob@npm:^10.3.10, glob@npm:^10.3.7, glob@npm:^10.4.2":
   version: 10.4.5
   resolution: "glob@npm:10.4.5"
   dependencies:
@@ -10350,6 +10357,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"replace-in-file@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "replace-in-file@npm:8.3.0"
+  dependencies:
+    chalk: "npm:^5.3.0"
+    glob: "npm:^10.4.2"
+    yargs: "npm:^17.7.2"
+  bin:
+    replace-in-file: bin/cli.js
+  checksum: 10c0/0862e36112c06be39ff2bb1f3448dc976adc89d1d80ca6613b4410683e62338fd83d69c2d291065d7603bd1361e52ff672406eeea2e38309b9368a8f6fcad7c0
+  languageName: node
+  linkType: hard
+
 "require-directory@npm:^2.1.1":
   version: 2.1.1
   resolution: "require-directory@npm:2.1.1"
@@ -10750,6 +10770,7 @@ __metadata:
     "@sentry-internal/typescript": "npm:9.10.1"
     lerna: "npm:^8.2.1"
     patch-package: "npm:^8.0.0"
+    replace-in-file: "npm:^8.3.0"
   languageName: unknown
   linkType: soft
 
@@ -12637,7 +12658,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:17.7.2, yargs@npm:^17.6.2":
+"yargs@npm:17.7.2, yargs@npm:^17.6.2, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:
