@@ -50,7 +50,7 @@ export async function symbolicateFrames({
       continue;
     }
 
-    const sourceMapPath = urlToPath(sourceMapUrl)?.slice(1); // remove leading '/';;
+    const sourceMapPath = urlToPath(sourceMapUrl)?.slice(1); // remove leading '/'
     if (!sourceMapPath) {
       logger.warn(`${PREFIX} Source map url ${sourceMapUrl} is not a valid path`);
       symbolicatedFrames.push(frame);
@@ -66,12 +66,12 @@ export async function symbolicateFrames({
     }
 
     const sourceMap = await new SourceMapConsumer(sourceMapContents);
-    const originalLine = sourceMap.originalPositionFor({
+    const original = sourceMap.originalPositionFor({
       line: lineno,
       column: colno,
     });
 
-    const originalSourcePath = originalLine.source ? urlToPath(originalLine.source) : undefined;
+    const originalSourcePath = original.source ? urlToPath(original.source) : undefined;
     const relativeSourcePath = originalSourcePath && path.isAbsolute(originalSourcePath)
       ? path.relative(projectRootPath, originalSourcePath)
       : undefined;
@@ -79,8 +79,8 @@ export async function symbolicateFrames({
     symbolicatedFrames.push({
       ...frame,
       filename: relativeSourcePath || originalSourcePath,
-      lineno: originalLine.line || undefined,
-      colno: originalLine.column || undefined,
+      lineno: original.line || undefined,
+      colno: original.column || undefined,
     });
   }
 
