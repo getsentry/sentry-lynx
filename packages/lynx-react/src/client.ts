@@ -74,7 +74,7 @@ export class LynxClient extends Client<LynxClientOptions> {
       // TODO: Temporary fix for URLSearchParams not defined in Lynx
       dsn: undefined,
     };
-    applySdkMetadata(opts, 'lynx', ['lynx']);
+    applySdkMetadata(opts, 'lynx.react', ['lynx-react']);
 
     super(opts);
 
@@ -165,7 +165,7 @@ export class LynxClient extends Client<LynxClientOptions> {
  * @param options SDK options object that gets mutated
  * @param names list of package names
  */
-export function applySdkMetadata(options: Options, name: string, names = [name], source = 'npm'): void {
+export function applySdkMetadata(options: Options, name: string, names: string[] = [], source = 'npm'): void {
   const metadata = options._metadata || {};
 
   if (!metadata.sdk) {
