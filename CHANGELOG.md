@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0-preview.0
 
 Initial preview release of the Sentry Lynx SDK. This release focuses on error monitoring
 of the background JavaScript thread of Lynx React mobile applications.

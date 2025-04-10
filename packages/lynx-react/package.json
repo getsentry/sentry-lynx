@@ -2,7 +2,7 @@
   "name": "@sentry/lynx-react",
   "homepage": "https://github.com/getsentry/sentry-lynx",
   "repository": "https://github.com/getsentry/sentry-lynx",
-  "version": "0.0.0",
+  "version": "0.1.0-preview.0",
   "description": "Official Sentry SDK for Lynx React",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
@@ -42,7 +42,7 @@
   "author": "Sentry",
   "license": "MIT",
   "dependencies": {
-    "@sentry-internal/lynx-plugin": "0.0.0",
+    "@sentry-internal/lynx-plugin": "0.1.0-preview.0",
     "@sentry/browser": "9.10.1",
     "@sentry/core": "9.10.1"
   },

@@ -1,6 +1,6 @@
 {
   "name": "sentry-lynx-react-sample",
-  "version": "0.0.0",
+  "version": "0.1.0-preview.0",
   "type": "module",
   "scripts": {
     "build": "DEBUG='*' rspeedy build && ./scripts/copy-bundle.sh",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@lynx-js/react": "^0.106.2",
-    "@sentry/lynx-react": "0.0.0"
+    "@sentry/lynx-react": "0.1.0-preview.0"
   },
   "devDependencies": {
     "@lynx-js/qrcode-rsbuild-plugin": "^0.3.4",
