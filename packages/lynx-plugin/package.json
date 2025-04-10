@@ -2,7 +2,7 @@
   "name": "@sentry-internal/lynx-plugin",
   "homepage": "https://github.com/getsentry/sentry-lynx",
   "repository": "https://github.com/getsentry/sentry-lynx",
-  "version": "0.0.0",
+  "version": "0.1.0-preview.0",
   "description": "Official Sentry Plugin for lynx",
   "module": "dist/esm/index.mjs",
   "types": "dist/types/index.d.ts",
