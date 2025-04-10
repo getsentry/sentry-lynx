@@ -4,11 +4,9 @@ preReleaseCommand: bash scripts/craft-pre-release.sh
 targets:
   - name: npm
   - name: github
-  # The first registry needs to be added manually otherwise the CI release will fail
-  # We can uncomment this after we did our first release and added the registry manually
-  # - name: registry
-  #   sdks:
-  #     npm:@sentry/lynx-react:
-  #       includeNames: /^sentry-lynx-react-\d.*\.tgz$/
-  #     npm:@sentry-internal/lynx-plugin:
-  #       includeNames: /^sentry-internal-lynx-plugin-\d.*\.tgz$/
+  - name: registry
+    sdks:
+      npm:@sentry/lynx-react:
+        includeNames: /^sentry-lynx-react-\d.*\.tgz$/
+      npm:@sentry-internal/lynx-plugin:
+        includeNames: /^sentry-internal-lynx-plugin-\d.*\.tgz$/
