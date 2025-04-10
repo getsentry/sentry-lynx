@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Changes
+
+- Update the SDK name to `sentry.javascript.lynx.react` ([#26](https://github.com/getsentry/sentry-lynx/pull/26))
+
 ## 0.1.0-preview.0
 
 Initial preview release of the Sentry Lynx SDK. This release focuses on error monitoring
@@ -58,4 +64,3 @@ DEBUG='*' rspeedy build
 If you encounter any bugs or have feature requests, please:
 - Open an issue at https://github.com/getsentry/sentry-lynx/issues
 - Join the discussion on [Sentry Discord](https://discord.gg/sentry)
-
