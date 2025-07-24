@@ -22,5 +22,8 @@
     "samples/*",
     "samples/react/web"
   ],
+  "resolutions": {
+    "form-data": "^4.0.4"
+  },
   "packageManager": "yarn@4.8.1"
 }
