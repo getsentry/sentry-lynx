@@ -6,7 +6,7 @@ import {
   GLOBAL_OBJ,
   inboundFiltersIntegration,
   initAndBind,
-  logger,
+  debug,
   stackParserFromStackParserOptions,
   supportsFetch,
 } from '@sentry/core';
@@ -114,14 +114,14 @@ export function applyDefaultOptions(optionsArg: LynxOptions = {}): LynxOptions {
  */
 export function init(lynxOptions: LynxOptions = {}): Client | undefined {
   if (!isLynxBackgroundThread() && !isBrowserMainThread()) {
-    logger.info('Sentry initialization skipped: Sentry is only enabled on the mobile background thread or browser main thread.')
+    debug.log('Sentry initialization skipped: Sentry is only enabled on the mobile background thread or browser main thread.')
     return
   }
 
   const options = applyDefaultOptions(lynxOptions);
 
   if (!supportsFetch() && notMobile()) {
-    logger.warn(
+    debug.warn(
       'No Fetch API detected. The Sentry SDK requires a Fetch API compatible environment to send events. Please add a Fetch API polyfill.',
     );
   }

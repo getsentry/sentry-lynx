@@ -2,7 +2,7 @@ import * as path  from 'node:path';
 import * as fs from 'node:fs';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { symbolicateFrames } from '../../../src/symbolicator';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 import dedent from 'dedent';
 
 // Can't be in place, as it will get recognized by the test runner as a source map
@@ -119,7 +119,7 @@ describe('symbolicateFrames', () => {
     });
 
     it('should pass through frames without lineno or colno', async () => {
-      const warnSpy = vi.spyOn(logger, 'warn');
+      const warnSpy = vi.spyOn(debug, 'warn');
 
       await symbolicateFrames({
         frames: [
@@ -177,7 +177,7 @@ describe('symbolicateFrames', () => {
     });
 
     it('should print a warning when skipping a frame without a filename', async () => {
-      const warnSpy = vi.spyOn(logger, 'warn');
+      const warnSpy = vi.spyOn(debug, 'warn');
 
       await symbolicateFrames({
         frames: [
@@ -260,7 +260,7 @@ describe('symbolicateFrames', () => {
     itShouldPassThroughTheUnsymbolicatedFrame();
 
     it('should print a warning when failed to read the bundle file', async () => {
-      const warnSpy = vi.spyOn(logger, 'warn');
+      const warnSpy = vi.spyOn(debug, 'warn');
 
       await symbolicateFrames({
         frames: [
@@ -287,7 +287,7 @@ describe('symbolicateFrames', () => {
     itShouldPassThroughTheUnsymbolicatedFrame();
 
     it('should print a warning when no source map url found in the bundle file', async () => {
-      const warnSpy = vi.spyOn(logger, 'warn');
+      const warnSpy = vi.spyOn(debug, 'warn');
 
       await symbolicateFrames({
         frames: [
@@ -313,7 +313,7 @@ describe('symbolicateFrames', () => {
     itShouldPassThroughTheUnsymbolicatedFrame();
 
     it('should print a warning when failed to read the source map file', async () => {
-      const warnSpy = vi.spyOn(logger, 'warn');
+      const warnSpy = vi.spyOn(debug, 'warn');
 
       await symbolicateFrames({
         frames: [

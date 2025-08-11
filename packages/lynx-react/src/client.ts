@@ -14,7 +14,7 @@ import {
   addAutoIpAddressToSession,
   addAutoIpAddressToUser,
   makeDsn,
-  logger,
+  debug,
 } from '@sentry/core';
 import { eventFromException, eventFromMessage } from '@sentry/browser';
 import { SDK_VERSION } from './version';
@@ -83,7 +83,7 @@ export class LynxClient extends Client<LynxClientOptions> {
       // @ts-ignore _dsn is read-only
       this._dsn = makeDsn(options.dsn);
     } else {
-      logger.warn('No DSN provided, client will not send events.');
+      debug.warn('No DSN provided, client will not send events.');
     }
 
     if (this._dsn) {

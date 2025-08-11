@@ -4,7 +4,7 @@ import * as rawBodyUtils from '../../../src/utils/getRawBody';
 import * as symbolicator from '../../../src/symbolicator';
 import { ServerResponse } from 'http';
 import { IncomingMessage } from 'http';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 
 describe('processSymbolicateRequest', () => {
   it('throws an error on request error', async () => {
@@ -36,7 +36,7 @@ describe('processSymbolicateRequest', () => {
 
   it('error logs on invalid JSON', async () => {
     vi.spyOn(rawBodyUtils, 'getRawBody').mockResolvedValueOnce('invalid json');
-    const errorSpy = vi.spyOn(logger, 'error');
+    const errorSpy = vi.spyOn(debug, 'error');
 
     const req = {} as unknown as IncomingMessage;
     const res = {
@@ -71,7 +71,7 @@ describe('processSymbolicateRequest', () => {
   it('error logs on symbolicate error', async () => {
     vi.spyOn(rawBodyUtils, 'getRawBody').mockResolvedValueOnce('{ "frames": [] }');
     vi.spyOn(symbolicator, 'symbolicateFrames').mockRejectedValue(new Error('test error'));
-    const errorSpy = vi.spyOn(logger, 'error');
+    const errorSpy = vi.spyOn(debug, 'error');
 
     const req = {} as unknown as IncomingMessage;
     const res = {

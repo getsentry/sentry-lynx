@@ -1,7 +1,7 @@
 import type { RsbuildPlugin } from '@rsbuild/core'
 import { sentryWebpackPlugin, type SentryWebpackPluginOptions } from '@sentry/webpack-plugin/webpack5';
 import { createSentrySymbolicatorMiddleware } from './middleware';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 import { PREFIX } from './prefix';
 
 /**
@@ -30,9 +30,9 @@ export function pluginSentryLynx(options: SentryWebpackPluginOptions & {
    */
   localSymbolication?: boolean,
 }): RsbuildPlugin {
-  const { debug, localSymbolication = true } = options;
-  if (debug) {
-    logger.enable();
+  const { debug: enableDebugLogging, localSymbolication = true } = options;
+  if (enableDebugLogging) {
+    debug.enable();
   }
 
   return {
@@ -45,7 +45,7 @@ export function pluginSentryLynx(options: SentryWebpackPluginOptions & {
       if (localSymbolication) {
         api.modifyRsbuildConfig((config) => {
           if (!config.dev) {
-            logger.warn(`${PREFIX} No dev configuration found for Sentry Middleware.`);
+            debug.warn(`${PREFIX} No dev configuration found for Sentry Middleware.`);
             return;
           }
 

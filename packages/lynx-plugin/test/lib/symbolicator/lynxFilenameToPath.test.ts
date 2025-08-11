@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { urlToPath, lynxUrlToPath } from '../../../src/symbolicator';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 import { PREFIX } from '../../../src/prefix';
 
 describe('urlToPath', () => {
@@ -21,7 +21,7 @@ describe('urlToPath', () => {
   });
 
   it('should log a warning if the filename is not a valid URL', () => {
-    const warnSpy = vi.spyOn(logger, 'warn');
+    const warnSpy = vi.spyOn(debug, 'warn');
     urlToPath('test/main.lynx.bundle');
     expect(warnSpy).toHaveBeenCalledWith(`${PREFIX} Filename test/main.lynx.bundle is not a valid URL`);
   });
@@ -33,7 +33,7 @@ describe('lynxUrlToPath', () => {
   });
 
   it('should log a warning if the filename does not start with file://', () => {
-    const warnSpy = vi.spyOn(logger, 'warn');
+    const warnSpy = vi.spyOn(debug, 'warn');
     lynxUrlToPath('http://localhost:3000/main.lynx.bundle');
     expect(warnSpy).toHaveBeenCalledWith(`${PREFIX} Filename http://localhost:3000/main.lynx.bundle does not start with file://`);
   });

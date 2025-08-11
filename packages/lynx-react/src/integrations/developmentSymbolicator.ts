@@ -1,4 +1,4 @@
-import { Integration, logger, StackFrame } from '@sentry/core';
+import { Integration, debug, StackFrame } from '@sentry/core';
 import { getFetch } from '../utils/fetch';
 import { getLynx } from '../environment';
 
@@ -44,19 +44,20 @@ async function symbolicateFrames(frames: StackFrame[] | undefined): Promise<Stac
   }
 
   try {
+    // Ensure debug logging is enabled when SDK debug option is on; handled by SDK init
     const fetch = getFetch();
     if (!fetch) {
-      logger.warn('No fetch implementation found');
+      debug.warn('No fetch implementation found');
       return frames;
     }
 
     const developmentServerUrl = getDevelopmentServerUrl();
     if (!developmentServerUrl) {
-      logger.warn('No development server url found');
+      debug.warn('No development server url found');
       return frames;
     }
 
-    logger.debug(`${PREFIX} Symbolicating ${frames.length} frames using ${developmentServerUrl}.`);
+    debug.log(`${PREFIX} Symbolicating ${frames.length} frames using ${developmentServerUrl}.`);
     const response = await fetch(`${developmentServerUrl}${SYMBOLICATOR_ENDPOINT}`, {
       method: 'POST',
       body: JSON.stringify({ frames }),
@@ -65,13 +66,13 @@ async function symbolicateFrames(frames: StackFrame[] | undefined): Promise<Stac
     const data = await response.json();
 
     if (!response.ok) {
-      logger.error(`${PREFIX} Error symbolicating frames`, data);
+      debug.error(`${PREFIX} Error symbolicating frames`, data);
       return frames;
     }
 
     return data.frames;
   } catch (error) {
-    logger.error('Error symbolicating frames', error);
+    debug.error('Error symbolicating frames', error);
     return frames;
   }
 }

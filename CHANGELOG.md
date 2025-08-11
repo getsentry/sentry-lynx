@@ -1,13 +1,5 @@
 # Changelog
 
-## 0.1.0-preview.2
-
-### Dependencies
-
-- Bump JavaScript SDK from v9.10.1 to v10.4.0 ([#3157](https://github.com/getsentry/sentry-lynx/pull/33))
-  - [changelog](https://github.com/getsentry/sentry-javascript/blob/develop/CHANGELOG.md#1040)
-  - [diff](https://github.com/getsentry/sentry-javascript/compare/9.10.1...10.4.0)
-
 ## 0.1.0-preview.1
 
 ### Changes
