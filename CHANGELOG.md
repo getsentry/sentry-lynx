@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-preview.2
+
+### Dependencies
+
+- Bump JavaScript SDK from v9.10.1 to v10.4.0 ([#3157](https://github.com/getsentry/sentry-lynx/pull/33))
+  - [changelog](https://github.com/getsentry/sentry-javascript/blob/develop/CHANGELOG.md#1040)
+  - [diff](https://github.com/getsentry/sentry-javascript/compare/9.10.1...10.4.0)
+
 ## 0.1.0-preview.1
 
 ### Changes
@@ -16,30 +24,30 @@ Then add the Sentry Lynx Plugin to upload source maps and see readable stacktrac
 
 ```js
 // App.tsx
-import * as Sentry from '@sentry/lynx-react';
+import * as Sentry from "@sentry/lynx-react";
 
 Sentry.init({
-  dsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
+  dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
 });
 ```
 
 ```js
 // lynx.config.ts
-import { defineConfig } from '@lynx-js/rspeedy';
-import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
+import { defineConfig } from "@lynx-js/rspeedy";
+import { pluginSentryLynx } from "@sentry/lynx-react/plugin";
 
 export default defineConfig({
   plugins: [
     // ... other plugins
     pluginSentryLynx({
-      org: 'your-sentry-organization-slug',
-      project: 'your-sentry-project-slug',
+      org: "your-sentry-organization-slug",
+      project: "your-sentry-project-slug",
       authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
   output: {
     sourceMap: {
-      js: 'source-map',
+      js: "source-map",
     },
   },
 });
@@ -62,5 +70,6 @@ DEBUG='*' rspeedy build
 ### Support
 
 If you encounter any bugs or have feature requests, please:
+
 - Open an issue at https://github.com/getsentry/sentry-lynx/issues
 - Join the discussion on [Sentry Discord](https://discord.gg/sentry)
