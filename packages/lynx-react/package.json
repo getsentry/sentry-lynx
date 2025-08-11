@@ -43,8 +43,8 @@
   "license": "MIT",
   "dependencies": {
     "@sentry-internal/lynx-plugin": "0.1.0-preview.1",
-    "@sentry/browser": "9.10.1",
-    "@sentry/core": "9.10.1"
+    "@sentry/browser": "10.4.0",
+    "@sentry/core": "10.4.0"
   },
   "devDependencies": {
     "@lynx-js/react": "^0.106.3",
