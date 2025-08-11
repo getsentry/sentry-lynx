@@ -24,30 +24,30 @@ Then add the Sentry Lynx Plugin to upload source maps and see readable stacktrac
 
 ```js
 // App.tsx
-import * as Sentry from "@sentry/lynx-react";
+import * as Sentry from '@sentry/lynx-react';
 
 Sentry.init({
-  dsn: "https://examplePublicKey@o0.ingest.sentry.io/0",
+  dsn: 'https://examplePublicKey@o0.ingest.sentry.io/0',
 });
 ```
 
 ```js
 // lynx.config.ts
-import { defineConfig } from "@lynx-js/rspeedy";
-import { pluginSentryLynx } from "@sentry/lynx-react/plugin";
+import { defineConfig } from '@lynx-js/rspeedy';
+import { pluginSentryLynx } from '@sentry/lynx-react/plugin';
 
 export default defineConfig({
   plugins: [
     // ... other plugins
     pluginSentryLynx({
-      org: "your-sentry-organization-slug",
-      project: "your-sentry-project-slug",
+      org: 'your-sentry-organization-slug',
+      project: 'your-sentry-project-slug',
       authToken: process.env.SENTRY_AUTH_TOKEN,
     }),
   ],
   output: {
     sourceMap: {
-      js: "source-map",
+      js: 'source-map',
     },
   },
 });
