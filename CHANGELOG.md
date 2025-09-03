@@ -62,5 +62,6 @@ DEBUG='*' rspeedy build
 ### Support
 
 If you encounter any bugs or have feature requests, please:
+
 - Open an issue at https://github.com/getsentry/sentry-lynx/issues
 - Join the discussion on [Sentry Discord](https://discord.gg/sentry)

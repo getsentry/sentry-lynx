@@ -12,9 +12,8 @@ import {
   GLOBAL_OBJ,
   Client,
   addAutoIpAddressToSession,
-  addAutoIpAddressToUser,
   makeDsn,
-  logger,
+  debug,
 } from '@sentry/core';
 import { eventFromException, eventFromMessage } from '@sentry/browser';
 import { SDK_VERSION } from './version';
@@ -76,6 +75,14 @@ export class LynxClient extends Client<LynxClientOptions> {
     };
     applySdkMetadata(opts, 'lynx.react', ['lynx-react']);
 
+    // Only allow IP inferral by Relay if sendDefaultPii is true
+    if (opts._metadata?.sdk) {
+      opts._metadata.sdk.settings = {
+        infer_ip: opts.sendDefaultPii ? 'auto' : 'never',
+        ...opts._metadata.sdk.settings,
+      };
+    }
+
     super(opts);
 
     // TODO: Temporary fix for URLSearchParams not defined in Lynx
@@ -83,7 +90,7 @@ export class LynxClient extends Client<LynxClientOptions> {
       // @ts-ignore _dsn is read-only
       this._dsn = makeDsn(options.dsn);
     } else {
-      logger.warn('No DSN provided, client will not send events.');
+      debug.warn('No DSN provided, client will not send events.');
     }
 
     if (this._dsn) {
@@ -114,7 +121,6 @@ export class LynxClient extends Client<LynxClientOptions> {
     }
 
     if (sendDefaultPii) {
-      client.on('postprocessEvent', addAutoIpAddressToUser);
       client.on('beforeSendSession', addAutoIpAddressToSession);
     }
   }

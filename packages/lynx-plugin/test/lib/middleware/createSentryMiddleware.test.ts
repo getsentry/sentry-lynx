@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createSentrySymbolicatorMiddleware, noopMiddleware, SENTRY_SYMBOLICATE_ENDPOINT } from '../../../src/middleware';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 import { IncomingMessage } from 'http';
 import { ServerResponse } from 'node:http';
 import * as rawBodyUtils from '../../../src/utils/getRawBody';
@@ -13,7 +13,7 @@ describe('createSentryMiddleware', () => {
   });
 
   it('warns if no root is provided', async () => {
-    const warnSpy = vi.spyOn(logger, 'warn');
+    const warnSpy = vi.spyOn(debug, 'warn');
     createSentrySymbolicatorMiddleware({});
     expect(warnSpy).toHaveBeenCalledWith(expect.stringContaining('No project root path provided. Symbolication will not work.'));
   });

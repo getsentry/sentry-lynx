@@ -2,7 +2,7 @@ import { ServerResponse } from 'node:http';
 import { IncomingMessage } from 'node:http';
 import * as path from 'node:path';
 import { symbolicateFrames } from './symbolicator';
-import { logger } from '@sentry/core';
+import { debug } from '@sentry/core';
 import { PREFIX } from './prefix';
 import { tryCatch } from './utils/tryCatch';
 import { RsbuildConfig } from '@rsbuild/core';
@@ -14,7 +14,7 @@ export type NextFunction = () => void;
 
 export const createSentrySymbolicatorMiddleware = (config: RsbuildConfig) => {
   if (!config.root) {
-    logger.warn(`${PREFIX} No project root path provided. Symbolication will not work.`);
+    debug.warn(`${PREFIX} No project root path provided. Symbolication will not work.`);
     return noopMiddleware;
   }
 
@@ -29,7 +29,7 @@ export const createSentrySymbolicatorMiddleware = (config: RsbuildConfig) => {
       try {
         await processSymbolicateRequest({ req, res, projectRootPath, serverPublicPath });
       } catch (error) {
-        logger.error(`${PREFIX} Error processing symbolicate request: ${error}`);
+        debug.error(`${PREFIX} Error processing symbolicate request: ${error}`);
         res.setHeader('Content-Type', 'application/json');
         res.statusCode = 500;
         res.end('{ "error": "Internal Server Error" }');
@@ -60,20 +60,20 @@ export async function processSymbolicateRequest({
 
   const { data, error } = tryCatch(() => JSON.parse(body));
   if (error) {
-    logger.error(`${PREFIX} Error parsing symbolicate request body: ${body}\nerror: ${error}`);
+    debug.error(`${PREFIX} Error parsing symbolicate request body: ${body}\nerror: ${error}`);
     res.statusCode = 400;
     res.end('{ "error": "Bad Request" }');
     return;
   }
 
-  logger.debug(`${PREFIX} Symbolicating ${data.frames.length} frames.`);
+  debug.log(`${PREFIX} Symbolicating ${data.frames.length} frames.`);
   const { data: symbolicatedFrames, error: symbolicationError } = await tryCatch(() => symbolicateFrames({
     frames: data.frames,
     projectRootPath,
     serverPublicPath,
   }));
   if (symbolicationError) {
-    logger.error(`${PREFIX} Error symbolicating frames: ${symbolicationError}`);
+    debug.error(`${PREFIX} Error symbolicating frames: ${symbolicationError}`);
     res.statusCode = 500;
     res.end('{ "error": "Internal Server Error" }');
     return;
