@@ -1,6 +1,6 @@
 {
   "name": "sentry-lynx-react-web-sample",
-  "version": "0.1.0-preview.1",
+  "version": "0.1.0-preview.2",
   "private": true,
   "type": "module",
   "scripts": {
@@ -20,7 +20,7 @@
     "@rsbuild/plugin-react": "^1.1.0",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
-    "sentry-lynx-react-sample": "0.1.0-preview.1",
+    "sentry-lynx-react-sample": "0.1.0-preview.2",
     "typescript": "^5.7.3"
   }
 }
