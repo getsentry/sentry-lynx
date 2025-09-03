@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-preview.2
+
+### Various fixes & improvements
+
+- deps: Bump Sentry Javascript from `9.10.1` to `10.4.0` (#33) by @buenaflor
+- chore(deps): Bump vite from 6.2.6 to 6.3.4 (#30) by @dependabot
+- chore(deps): Bump form-data from 4.0.2 to 4.0.4 (#31) by @dependabot
+- chore(deps): Bump vite from 6.2.4 to 6.2.6 (#29) by @dependabot
+- Enable registry target in `.craft.yml` (#27) by @buenaflor
+
 ## 0.1.0-preview.1
 
 ### Changes
