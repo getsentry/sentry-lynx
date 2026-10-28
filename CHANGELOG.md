@@ -1,9 +1,5 @@
 # Changelog
 
-## Unreleased
-
-- Use dark-mode-aware Sentry logo in READMEs ([#59](https://github.com/getsentry/sentry-lynx/pull/59))
-
 ## 0.1.0-preview.2
 
 ### Various fixes & improvements
