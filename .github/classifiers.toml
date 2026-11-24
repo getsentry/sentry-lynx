@@ -1,0 +1,44 @@
+# getsentry/sentry-lynx a5d467d19d0779fc516aca52f804be4e0e09395d
+
+rubric = "sdk"
+
+# @sentry/lynx-react: JavaScript SDK on top of @sentry/browser running in the Lynx engine's
+# main and background JS threads inside iOS/Android apps (and Lynx for Web). No native
+# Sentry SDK is bundled at this commit.
+[[area]]
+paths = ["packages/lynx-react/**"]
+families = ["browser", "hybrid"]
+
+# Rsbuild plugin (wraps @sentry/webpack-plugin for source map upload, adds a dev-server
+# symbolication middleware) that runs in customers' builds; re-exported as
+# @sentry/lynx-react/plugin.
+[[area]]
+paths = ["packages/lynx-plugin/**", "packages/lynx-react/plugin/**"]
+families = ["tooling"]
+
+# Workspace lockfile: the dependency versions both published packages are built from.
+[[area]]
+paths = ["yarn.lock"]
+families = ["browser", "hybrid", "tooling"]
+shared_core = true
+
+# Bundled SDK pins (@sentry/browser, @sentry/core, @sentry/webpack-plugin) are in
+# packages/*/package.json, which defaults.toml tags dependencies.
+[[kind]]
+paths = [".yarnrc.yml"]
+kind = "dependencies"
+
+[[kind]]
+paths = ["packages/*/test/**", "packages/*/vitest.config.ts", "packages/*/tsconfig.test.json"]
+kind = "tests"
+
+[[kind]]
+paths = ["samples/**"]
+kind = "samples"
+
+[[kind]]
+paths = [
+  "scripts/**", "packages/*/scripts/**", "packages/*/rollup.config.mjs", "**/tsconfig*.json",
+  "**/.npmignore", "lerna.json", "packages/lynx-react/src/version.ts",
+]
+kind = "build-release"
